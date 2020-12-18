@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-proj4/Pods-proj4-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/mailgun/mailgun.framework

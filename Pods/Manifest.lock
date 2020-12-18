@@ -1,0 +1,21 @@
+PODS:
+  - AFNetworking (1.1.0)
+  - mailgun (1.0.3):
+    - AFNetworking (~> 1.1.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.1.0)
+  - mailgun (~> 1.0.3)
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - mailgun
+
+SPEC CHECKSUMS:
+  AFNetworking: e6427e782b25a2289d909960df8ef41358b3277c
+  mailgun: 17290deea4db24050dd03ca59cd7385d508904b3
+
+PODFILE CHECKSUM: 0510756402d169dd3eac80c2b5874f3b73aec9fb
+
+COCOAPODS: 1.10.0
