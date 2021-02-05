@@ -1,0 +1,32 @@
+(Lasted updated by Deanna Kaufman on 02/02/2021)
+
+NEED TO KNOW:
+* For the remote connection to work, someone must be near the actual MacBook in order to turn it on and share needed information with the person who is trying to connect to it.
+* Connection to this device is purely for TEAM MEMBERS ONLY, and therefore, all credentials needed should already be known by the team member. Each member should know where to find said credentials. 
+* It should be noted that the team is also considering rotating who has possession of the MacBook, so that everyone who does not have one get's a chance to use it.
+
+
+
+THE CONNECTION:
+We are using TeamViewer to establish a remote connection between two devices.
+
+
+
+SETUP:
+To setup the ability to connect to the MacBook through TeamViewer first you will need to follow the steps directly below.
+
+1. Download the TeamViewer application from https://www.teamviewer.com/en-us/download/
+   The download is free for personal use.
+   
+2. Visit https://login.teamviewer.com/LogOn
+   Here you will use the teams credentials to log in. If this is your first time logging in on your personal device, you will need to verify your device using a link that will be sent to the team's email after your login attempt. After verifying your device, you should be able to login.
+   
+3. Navigate through dashboard to connect to MacBook
+   After signing onto the TeamViewer website, you should see a user dashboard. In the side panel navigation menu, navigate to GROUPS -> My Computers. In this section you should see a tab for "Computers & Contacts." Under this category you should see a blue CONNECT button for the computer named "ls-MacBook-Air.local". Click the CONNECT button to connect.
+
+4. Choose TeamViewer Application to connect
+   After clicking CONNECT, you will be prompted to connect via the TeamViewer application, WebConnector, or Chrome App. For the best experience, choose the TeamViewer application. After choosing your option, click the blue CONNECT again.
+   
+5. Enter MacBook ID and Get connected
+   Once the TeamViewer application has opened, the person with the MacBook will have to share the Partner ID and password. Then the person trying to connect can enter in this information, select "Remote Control" and then click CONNECT.
+   

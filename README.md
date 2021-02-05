@@ -27,3 +27,18 @@ git clone https://github.com/dcm026/The-Smart-Apples.git
 ### 9. This gives all subfiles and folders all read-write-execute permissions (overkill, but we need to get this working).
 
 ### 10. If it's working you should get a clean build and the watch app demo will execute.
+
+
+## Installing via virtualbox on Windows 10 with AMD chipset
+
+### 1. Install Mac OS Catalina virtual machine using VMware Workstation 15.0.3
+Follow the video: https://www.youtube.com/watch?v=9MUi00wiHWI&list=LL&index=6&t=0s step by step (NOTE: this only works for AMD chips).
+
+### 2. Follow the Installation Procedures steps 1 to 6 above
+
+### 3. Install Xcode
+Download the Xcode 12.4 XIP file at https://xcodereleases.com/. I initially tried downloading it multiple times on the guest Mac OS via through the site and through the apple store but it failed each time. What worked for me was downloading it via the xcodereleases.com site and transfering it to the guest OS when the download is finished.
+Use the command to extract the xip file once you place it in the guest OS: xip -x ~/Desktop/Xcode_12.4.xip (if the xip file was not placed in the Desktop replace Desktop with the path you placed the file in). Navigate to the extracted folder and click the executable to install Xcode.
+
+### 4. Follow the Installation Procedures steps 7 to 10.
+
