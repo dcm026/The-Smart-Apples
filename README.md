@@ -10,6 +10,10 @@ git clone https://github.com/dcm026/The-Smart-Apples.git
 
 ### 3. Install Homebrew
 'mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew'
+***
+if the above command does not work try:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+***
 
 ### 4. Install Cocoapods (do not install with ruby)
 'brew install cocoapods'
