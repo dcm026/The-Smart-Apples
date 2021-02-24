@@ -2,13 +2,15 @@
 //  proj4Tests.swift
 //  proj4Tests
 //
-//  Created by Katie Till on 2/23/21.
+//  Created by Blake Till on 2/23/21.
 //  Copyright © 2021 Sam Spohn. All rights reserved.
 //
 
 import XCTest
+@testable import Pods_proj4
 
 class proj4Tests: XCTestCase {
+
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

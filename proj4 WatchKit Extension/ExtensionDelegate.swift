@@ -28,6 +28,7 @@ func scheduleNotification(value:Int) {
     
 }
 
+// Setup keychain class
 class KeyChain {
 
     class func save(key: String, data: Data) -> OSStatus {
@@ -87,7 +88,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     let heartRateUnit:HKUnit = HKUnit(from: "count/min")
     let heartRateType:HKQuantityType   = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     var heartRateQuery:HKSampleQuery?
-
+    
+    let status = KeyChain.save(key: "MyNumber", data: Data(from: 555))
+    
     private var value = 0
     func applicationDidFinishLaunching() {
 //        let refreshDate = Date(timeIntervalSinceNow: 15.0)
@@ -135,6 +138,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         self.value = Int(lastHeartRate)
         print("processesing")
         print(self.value)
+        print("status test keychain: ", status)
         scheduleNotification(value: self.value)
        }
     
