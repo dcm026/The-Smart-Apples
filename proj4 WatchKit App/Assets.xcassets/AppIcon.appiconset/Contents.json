@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "heart48.png",
+      "filename" : "appicon48.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -9,7 +9,7 @@
       "subtype" : "38mm"
     },
     {
-      "filename" : "heart55.png",
+      "filename" : "appicon55.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -17,21 +17,21 @@
       "subtype" : "42mm"
     },
     {
-      "filename" : "heart58.png",
+      "filename" : "appicon58-2.png",
       "idiom" : "watch",
       "role" : "companionSettings",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "heart87.png",
+      "filename" : "appicon87.png",
       "idiom" : "watch",
       "role" : "companionSettings",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "heart80.png",
+      "filename" : "appicon80-2.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -39,7 +39,7 @@
       "subtype" : "38mm"
     },
     {
-      "filename" : "heart88.png",
+      "filename" : "appicon88.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -47,7 +47,7 @@
       "subtype" : "40mm"
     },
     {
-      "filename" : "heart100.png",
+      "filename" : "appicon100.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -55,7 +55,7 @@
       "subtype" : "44mm"
     },
     {
-      "filename" : "heart172.png",
+      "filename" : "appicon172.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -63,7 +63,7 @@
       "subtype" : "38mm"
     },
     {
-      "filename" : "heart196.png",
+      "filename" : "appicon196.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -71,7 +71,7 @@
       "subtype" : "42mm"
     },
     {
-      "filename" : "heart216.png",
+      "filename" : "appicon216.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -79,7 +79,7 @@
       "subtype" : "44mm"
     },
     {
-      "filename" : "heart2.png",
+      "filename" : "appicon1024-1.png",
       "idiom" : "watch-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
