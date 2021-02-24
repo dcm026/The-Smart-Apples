@@ -90,7 +90,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     var heartRateQuery:HKSampleQuery?
     
     let status = KeyChain.save(key: "MyNumber", data: Data(from: 555))
-    
+    let receivedData = KeyChain.load(key: "MyNumber")
     private var value = 0
     func applicationDidFinishLaunching() {
 //        let refreshDate = Date(timeIntervalSinceNow: 15.0)
@@ -127,7 +127,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     private func process(_ samples: [HKSample], type: HKQuantityTypeIdentifier) {
        var lastHeartRate = 0.0
-
+        print("status test keychain: ", status)
+        print("status load keychain: ", receivedData)
+        
        for sample in samples {
            if type == .heartRate {
                 guard let currData:HKQuantitySample = sample as? HKQuantitySample else { return }
@@ -138,7 +140,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         self.value = Int(lastHeartRate)
         print("processesing")
         print(self.value)
-        print("status test keychain: ", status)
         scheduleNotification(value: self.value)
        }
     
