@@ -171,7 +171,7 @@ extension SceneDelegate {
             for con in self.contactList {
                 let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-                mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(lm.location?.latitude ?? 0) \n Longitude: \(lm.location?.longitude ?? 0) \n Placemark: \(lm.placemark)")
+                mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(lm.location?.latitude ?? 0) \n Longitude: \(lm.location?.longitude ?? 0) \n Placemark: \(String(describing: lm.placemark))")
             }
         }
         scheduleAppRefresh()
@@ -218,8 +218,8 @@ extension SceneDelegate {
         let notificationContent = UNMutableNotificationContent()
         
         // Configure Notification Content
-        notificationContent.title = "Bg"
-        notificationContent.body = "BG Notifications."
+        notificationContent.title = "Application Update"
+        notificationContent.body = "Alcor Health Monitoring App is running in the background"
         
         // Add Trigger
         let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
