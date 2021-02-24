@@ -26,7 +26,8 @@ struct ContentView: View {
     @State private var text = ""
 
     @ObservedObject var lm = LocationManager()
-
+    @ObservedObject var vc = ViewController()
+    
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
     var longitude: String { return("\(lm.location?.longitude ?? 0)") }
     var placemark: String { return("\(lm.placemark?.description ?? "XXX")") }
@@ -75,6 +76,11 @@ struct ContentView: View {
 //            Text("Status: \(self.status)")
             Spacer()
         }
+        
+        Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)").onAppear { self.vc.startAccelerometer()} // start accelerometer after this loads up
+        Text("Time of last movement: \(self.vc.lastMovementTime)")
+        Text("Last update time: \(self.vc.lastUpdateTime)")
+        
         NavigationView {
             List{
             Section(header: Text("Contacts")) {
