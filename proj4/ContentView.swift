@@ -11,6 +11,7 @@ import mailgun
 import CoreData
 
 
+
 struct contactRow : View {
     var c: Contact_
     var body: some View{
@@ -31,11 +32,17 @@ struct ContentView: View {
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
     var longitude: String { return("\(lm.location?.longitude ?? 0)") }
     var placemark: String { return("\(lm.placemark?.description ?? "XXX")") }
-    var status: String    { return("\(String(describing: lm.status))") }//
+    var subLocality: String { return("\(lm.placemark?.subLocality ?? "XXX")") }
+    var thoroughfare: String { return("\(lm.placemark?.thoroughfare ?? "XXX")") }
+    var locality: String { return("\(lm.placemark?.locality ?? "XXX")") }
+    var country: String { return("\(lm.placemark?.country ?? "XXX")") }
+    var postalCode: String { return("\(lm.placemark?.postalCode ?? "XXX")") }
+    var status: String    { return("\(String(describing: lm.status))") }
     var body: some View {
         VStack {
+            Text("Enter Email Address for SOS Contact")
             Spacer()
-            TextField("type something...", text: $text)
+            TextField("Enter Contact Here", text: $text)
             
             Button(action: {
                 let contact = Contact_(context: self.managedObjectContext)
@@ -63,16 +70,18 @@ struct ContentView: View {
                     mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
                  //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
                 }
-            }) {
+            })
+            {
                 Text("Send SOS")
             }
 
             Spacer()
 
 
-            Text("Latitude: \(self.latitude)")
-            Text("Longitude: \(self.longitude)")
-            Text("Placemark: \(self.placemark)")
+//            Text("Latitude: \(self.latitude)")
+//            Text("Longitude: \(self.longitude)")
+//            Text("Placemark: \(self.placemark)")
+            Text("Current Location: \(self.subLocality), " + "\(self.thoroughfare), " + "\(self.locality), " + "\(self.country), " + "\(self.postalCode)")
 //            Text("Status: \(self.status)")
             Spacer()
         }
@@ -167,6 +176,8 @@ class LocationManager: NSObject, ObservableObject {
     @Published var placemark: CLPlacemark? {
        willSet { objectWillChange.send() }
      }
+  
+    
     
   private func geocode() {
     guard let location = self.location else { return }
@@ -180,5 +191,4 @@ class LocationManager: NSObject, ObservableObject {
 
   }
 }
-
 
