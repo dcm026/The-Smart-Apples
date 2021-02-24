@@ -78,8 +78,7 @@ struct ContentView: View {
         }
         
         Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)").onAppear { self.vc.startAccelerometer()} // start accelerometer after this loads up
-        Text("Time of last movement: \(self.vc.lastMovementTime)")
-        Text("Last update time: \(self.vc.lastUpdateTime)")
+        Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
         
         NavigationView {
             List{
