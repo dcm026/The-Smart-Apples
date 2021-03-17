@@ -9,8 +9,12 @@
 import WatchKit
 import Foundation
 import SwiftUI
+import WatchConnectivity
 
-class HostingController: WKHostingController<ContentView> {
+class HostingController: WKHostingController<ContentView>{
+    //message time counter
+    public var lastMessage: CFAbsoluteTime = 0
+    
     override var body: ContentView {
         return ContentView()
     }

@@ -1,9 +1,10 @@
 import Foundation
 import UIKit
 import CoreMotion
+import WatchConnectivity
 
 
-class ViewController: UIViewController, ObservableObject {
+class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     var motion = CMMotionManager();
     // store last x, y, and z measurement
     public var x: Double = 0.0
@@ -11,11 +12,54 @@ class ViewController: UIViewController, ObservableObject {
     public var z: Double = 0.0
     public var lastMovementTime = -1 // unix time of last movement according to accelerometer data
     public var lastUpdateTime = -1
+    public var lastMessage: CFAbsoluteTime = 0
     private var movementThreshold: Double = 0.01
     private var updateFrequency = 0.01 // refresh frequency (in seconds)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //WatchConnectivity check and load
+        if (WCSession.isSupported()) {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+    }
+    
+    //required WatchConnectivity funcs
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+
+    }
+
+    func sessionDidBecomeInactive(_ session: WCSession) {
+
+    }
+
+    func sessionDidDeactivate(_ session: WCSession) {
+
+    }
+    
+    // Send Message to Watch func
+    
+    func sendWatchMessage() {
+        let currentTime = CFAbsoluteTimeGetCurrent()
+
+        // if less than half a second has passed, bail out
+        if lastMessage + 0.5 > currentTime {
+            return
+        }
+
+        // send a message to the watch if it's reachable
+        if (WCSession.default.isReachable) {
+            // this is a meaningless message, but it's enough for our purposes
+            let message = ["Message": "Hello"]
+            WCSession.default.sendMessage(message, replyHandler: nil)
+        }
+
+        // update our rate limiting property
+        lastMessage = CFAbsoluteTimeGetCurrent()
     }
     
     func startAccelerometer() {
