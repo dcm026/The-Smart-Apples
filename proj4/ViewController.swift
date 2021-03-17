@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreMotion
 import WatchConnectivity
-
+import MapKit
 
 class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     var motion = CMMotionManager();
@@ -16,9 +16,14 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     private var movementThreshold: Double = 0.01
     private var updateFrequency = 0.01 // refresh frequency (in seconds)
     
+    // MapKit
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkLocationServices()
         //WatchConnectivity check and load
         if (WCSession.isSupported()) {
             let session = WCSession.default
@@ -88,6 +93,30 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
             }
         }
+    }
+    
+    // MapKit
+    func checkLocationServices() {
+      if CLLocationManager.locationServicesEnabled() {
+        checkLocationAuthorization()
+      } else {
+        // Show alert letting the user know they have to turn this on.
+      }
+    }
+    func checkLocationAuthorization() {
+      switch CLLocationManager.authorizationStatus() {
+      case .authorizedWhenInUse:
+        mapView.showsUserLocation = true
+       case .denied: // Show alert telling users how to turn on permissions
+       break
+      case .notDetermined:
+        locationManager.requestWhenInUseAuthorization()
+        mapView.showsUserLocation = true
+      case .restricted: // Show an alert letting them know what’s up
+       break
+      case .authorizedAlways:
+       break
+      }
     }
 }
 
