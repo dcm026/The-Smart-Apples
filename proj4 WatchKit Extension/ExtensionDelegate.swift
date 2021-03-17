@@ -8,6 +8,7 @@
 import UserNotifications
 import WatchKit
 import HealthKit
+import WatchConnectivity
 
 func scheduleNotification(value:Int) {
     let center = UNUserNotificationCenter.current()
@@ -28,6 +29,59 @@ func scheduleNotification(value:Int) {
     
 }
 
+// Setup keychain class
+class KeyChain {
+
+    class func save(key: String, data: Data) -> OSStatus {
+        let query = [
+            kSecClass as String       : kSecClassGenericPassword as String,
+            kSecAttrAccount as String : key,
+            kSecValueData as String   : data ] as [String : Any]
+
+        SecItemDelete(query as CFDictionary)
+
+        return SecItemAdd(query as CFDictionary, nil)
+    }
+
+    class func load(key: String) -> Data? {
+        let query = [
+            kSecClass as String       : kSecClassGenericPassword,
+            kSecAttrAccount as String : key,
+            kSecReturnData as String  : kCFBooleanTrue!,
+            kSecMatchLimit as String  : kSecMatchLimitOne ] as [String : Any]
+
+        var dataTypeRef: AnyObject? = nil
+
+        let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+
+        if status == noErr {
+            return dataTypeRef as! Data?
+        } else {
+            return nil
+        }
+    }
+
+    class func createUniqueID() -> String {
+        let uuid: CFUUID = CFUUIDCreate(nil)
+        let cfStr: CFString = CFUUIDCreateString(nil, uuid)
+
+        let swiftString: String = cfStr as String
+        return swiftString
+    }
+}
+
+extension Data {
+
+    init<T>(from value: T) {
+        var value = value
+        self.init(buffer: UnsafeBufferPointer(start: &value, count: 1))
+    }
+
+    func to<T>(type: T.Type) -> T {
+        return self.withUnsafeBytes { $0.load(as: T.self) }
+    }
+}
+
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 //    private var healthStore = HKHealthStore()
 //    let heartRateQuantity = HKUnit(from: "count/min")
@@ -35,7 +89,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     let heartRateUnit:HKUnit = HKUnit(from: "count/min")
     let heartRateType:HKQuantityType   = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     var heartRateQuery:HKSampleQuery?
-
+    
+    //KeyChain test vals
+    let status = KeyChain.save(key: "MyNumber", data: Data(from: 555))
+    let receivedData = KeyChain.load(key: "MyNumber")
+    
+    
     private var value = 0
     func applicationDidFinishLaunching() {
 //        let refreshDate = Date(timeIntervalSinceNow: 15.0)
@@ -130,7 +189,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
                 }//eo-query
                 health.execute(heartRateQuery!)
                print("updating in background")
-
+                
+                //test print keychain vals
+                print("status test keychain: ", status)
+                print("status load keychain: ", receivedData)
+                
+                
+                //message passing to Iphone for keychain test
+                WCSession.default.sendMessageData(Data(), replyHandler: { (data) in
+                            let samplemessage = "testvalue"
+                            print("TEST MESSAGE PASSING : \(samplemessage)")
+                        }, errorHandler: nil)
+                
+                
+                
                 // Be sure to complete the background task once you’re done.
                 backgroundTask.setTaskCompletedWithSnapshot(false)
                 
