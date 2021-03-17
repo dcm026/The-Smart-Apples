@@ -30,8 +30,12 @@ struct ContentView: View {
     
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
     var longitude: String { return("\(lm.location?.longitude ?? 0)") }
-    var placemark: String { return("\(lm.placemark?.description ?? "XXX")") }
-    var status: String    { return("\(String(describing: lm.status))") }//
+    var streetname: String { return("\(lm.placemark?.name ?? "XXX")") }
+    var postalcode: String { return("\(lm.placemark?.postalCode ?? "XXX")") }
+    var city: String { return("\(lm.placemark?.locality ?? "XXX")") }
+    var state: String { return("\(lm.placemark?.administrativeArea ?? "XXX")") }
+    var country: String { return("\(lm.placemark?.country ?? "XXX")") }
+    
     var body: some View {
         VStack {
             Spacer()
@@ -70,10 +74,9 @@ struct ContentView: View {
             Spacer()
 
 
-            Text("Latitude: \(self.latitude)")
-            Text("Longitude: \(self.longitude)")
-            Text("Placemark: \(self.placemark)")
-//            Text("Status: \(self.status)")
+            Text("Address: \(self.streetname)")
+            Text("\(self.city), \(self.state) \(self.postalcode) \(self.country)")
+
             Spacer()
         }
         

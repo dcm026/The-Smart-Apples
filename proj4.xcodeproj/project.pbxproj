@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6327BBD725E6127C005015EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327BBD625E6127C005015EF /* ViewController.swift */; };
+		6A6F65CC26023429008FC25D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6F65CB26023429008FC25D /* MapKit.framework */; };
 		6E41347524E2FCEF00FDE93C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E41347424E2FCEF00FDE93C /* HealthKit.framework */; };
 		6E7335D524E0EDCC004192DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7335D424E0EDCC004192DA /* AppDelegate.swift */; };
 		6E7335D724E0EDCC004192DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7335D624E0EDCC004192DA /* SceneDelegate.swift */; };
@@ -90,6 +91,7 @@
 		21E3A0C56ECF4CDCFD191980 /* Pods-proj4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj4.release.xcconfig"; path = "Target Support Files/Pods-proj4/Pods-proj4.release.xcconfig"; sourceTree = "<group>"; };
 		4CF1E655B8FF4803EA16F71F /* Pods-proj4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proj4.debug.xcconfig"; path = "Target Support Files/Pods-proj4/Pods-proj4.debug.xcconfig"; sourceTree = "<group>"; };
 		6327BBD625E6127C005015EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6A6F65CB26023429008FC25D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6E0AEEB3254F2F4900D675A5 /* mailgunBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mailgunBridge.m; sourceTree = "<group>"; };
 		6E0AEEB4254F2F4900D675A5 /* proj4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "proj4-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E41347224E2FCEF00FDE93C /* proj4 WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "proj4 WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6F65CC26023429008FC25D /* MapKit.framework in Frameworks */,
 				B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,6 +174,7 @@
 		6E41347324E2FCEF00FDE93C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A6F65CB26023429008FC25D /* MapKit.framework */,
 				6E41347424E2FCEF00FDE93C /* HealthKit.framework */,
 				ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */,
 			);
@@ -852,47 +856,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proj4.app/proj4";
-			};
-			name = Release;
-		};
-
-		6E73363124E0EDD0004192DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KXN88K42BV;
-				INFOPLIST_FILE = proj4UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = sam.proj4UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = proj4;
-			};
-			name = Debug;
-		};
-		6E73363224E0EDD0004192DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KXN88K42BV;
-				INFOPLIST_FILE = proj4UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = sam.proj4UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = proj4;
 			};
 			name = Release;
 		};
