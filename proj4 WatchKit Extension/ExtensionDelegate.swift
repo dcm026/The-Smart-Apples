@@ -93,6 +93,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     //KeyChain test vals
     let status = KeyChain.save(key: "MyNumber", data: Data(from: 555))
     let receivedData = KeyChain.load(key: "MyNumber")
+    var keychaincheck = KeyChain.load(key: "MyNumber")
     
     
     private var value = 0
@@ -188,16 +189,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
                 }//eo-query
                 health.execute(heartRateQuery!)
-               print("updating in background")
+                print("updating in background")
                 
                 //test print keychain vals
-                print("status test keychain: ", status)
-                print("status load keychain: ", receivedData)
+                //print("status test keychain: ", status)
+                keychaincheck = Data(from:000);
+                
+                keychaincheck = KeyChain.load(key: "MyNumber")
+                
+                
+                if (keychaincheck != receivedData){
+                    keychaincheck = Data(from:000);
+                }
                 
                 
                 //message passing to Iphone for keychain test
                 WCSession.default.sendMessageData(Data(), replyHandler: { (data) in
-                            let samplemessage = "testvalue"
+                            let samplemessage = self.keychaincheck
                             print("TEST MESSAGE PASSING : \(samplemessage)")
                         }, errorHandler: nil)
                 
