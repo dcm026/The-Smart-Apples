@@ -39,8 +39,10 @@ struct ContentView: View {
     var postalCode: String { return("\(lm.placemark?.postalCode ?? "XXX")") }
     var status: String    { return("\(String(describing: lm.status))") }
     var body: some View {
-        VStack {
+        VStack() {
             Text("Enter Email Address for SOS Contact")
+                
+                
             Spacer()
             TextField("Enter Contact Here", text: $text)
             
@@ -72,7 +74,7 @@ struct ContentView: View {
                 }
             })
             {
-                Text("Send SOS")
+                sosButton()
             }
 
             Spacer()
@@ -195,6 +197,41 @@ class LocationManager: NSObject, ObservableObject {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        Group {
+            ContentView()
+        }
+    }
+}
+
+struct sosButton: View {
+    @State var buttonTapped = false
+    @State var buttonPressed = false
+    
+    var body: some View {
+        ZStack {
+            VStack{Text("SOS")
+                .font(.title)
+                .fontWeight(.bold)
+                
+            Spacer()
+            Image(systemName: "staroflife.fill")
+                .font(.system(size: 40, weight: .bold))
+                
+            }
+                
+            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
+            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
+            
+        }
+        .frame(width: 60, height: 60)
+        .background(
+            ZStack{
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 100.0, height: 100.0)//Button Size
+                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
+                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+            }
+        )
     }
 }
