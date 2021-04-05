@@ -10,8 +10,6 @@ import MessageUI
 import mailgun
 import CoreData
 
-
-
 struct contactRow : View {
     var c: Contact_
     var body: some View{
@@ -39,10 +37,18 @@ struct ContentView: View {
     var postalCode: String { return("\(lm.placemark?.postalCode ?? "XXX")") }
     var status: String    { return("\(String(describing: lm.status))") }
     var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color("Background"))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+        
         VStack() {
             Text("Enter Email Address for SOS Contact")
-                
-                
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .frame(height: 100.0)
             Spacer()
             TextField("Enter Contact Here", text: $text)
             
@@ -57,13 +63,15 @@ struct ContentView: View {
                 }
                 self.text = ""
             }) {
-                Text("save contact")
+                Text("Save Contact")
+                    .font(.title)
             }
 //
 
 
             
             Spacer()
+                
             Button(action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
@@ -80,17 +88,18 @@ struct ContentView: View {
             Spacer()
 
 
+
 //            Text("Latitude: \(self.latitude)")
 //            Text("Longitude: \(self.longitude)")
 //            Text("Placemark: \(self.placemark)")
-            Text("Current Location: \(self.subLocality), " + "\(self.thoroughfare), " + "\(self.locality), " + "\(self.country), " + "\(self.postalCode)")
+           // Text("Current Location: \(self.subLocality), " + "\(self.thoroughfare), " + "\(self.locality), " + "\(self.country), " + "\(self.postalCode)")
 //            Text("Status: \(self.status)")
-            Spacer()
-        }
-        
+          //  Spacer()
+        }}
+ /*
         Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)").onAppear { self.vc.startAccelerometer()} // start accelerometer after this loads up
         Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
-        
+    */
         NavigationView {
             List{
             Section(header: Text("Contacts")) {
@@ -121,11 +130,59 @@ struct ContentView: View {
          .navigationBarTitle(Text("Contact List"))
          .navigationBarItems(trailing: EditButton())
         }
+
     }
 
 }
 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView()
+        }
+    }
+}
 
+struct sosButton: View {
+    @State var buttonTapped = false
+    @State var buttonPressed = false
+    
+    var body: some View {
+        ZStack {
+            VStack{Text("SOS")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                
+            Image(systemName: "staroflife.fill")
+                .font(.system(size: 40, weight: .bold))
+                
+            }
+                
+            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
+            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
+            
+        }
+        .frame(width: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/)
+        .background(
+            ZStack{
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 200.0, height: 200.0)//Button Size
+                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
+                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+            }
+        )
+        .scaleEffect(buttonTapped ? 1.2 : 1)
+        .onTapGesture(count:1) {
+            self.buttonTapped.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.buttonTapped = false
+            }
+        }
+    }
+}
 
 import Foundation
 import CoreLocation
@@ -195,43 +252,4 @@ class LocationManager: NSObject, ObservableObject {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView()
-        }
-    }
-}
 
-struct sosButton: View {
-    @State var buttonTapped = false
-    @State var buttonPressed = false
-    
-    var body: some View {
-        ZStack {
-            VStack{Text("SOS")
-                .font(.title)
-                .fontWeight(.bold)
-                
-            Spacer()
-            Image(systemName: "staroflife.fill")
-                .font(.system(size: 40, weight: .bold))
-                
-            }
-                
-            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
-            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
-            
-        }
-        .frame(width: 60, height: 60)
-        .background(
-            ZStack{
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 100.0, height: 100.0)//Button Size
-                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
-                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
-            }
-        )
-    }
-}
