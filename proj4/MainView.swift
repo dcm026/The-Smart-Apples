@@ -11,10 +11,13 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
+
             ContentView()
                 .tabItem{ Label("SOS", systemImage:"heart.circle")}
+            ContactViewMain()
+                .tabItem{ Label("Contacts", systemImage:"list.dash")}
             OptionsMenu()
-                .tabItem { Label("Options", systemImage:"list.dash")
+                .tabItem { Label("Options", systemImage:"gear")
                 }
         }
     }

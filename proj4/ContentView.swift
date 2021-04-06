@@ -101,36 +101,6 @@ struct ContentView: View {
 //        Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)") // start accelerometer after this loads up
     /*    Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
     */
-        NavigationView {
-            List{
-            Section(header: Text("Contacts")) {
-                ForEach(self.contactList) { con in
-                     NavigationLink(destination: EditView(contact: con)) {
-                         VStack(alignment: .leading) {
-                            Text(con.email ?? "")
-                                 .font(.headline)
-                         }
-                     }
-                 }
-                 .onDelete { (indexSet) in // Delete gets triggered by swiping left on a row
-                     // ❇️ Gets the BlogIdea instance out of the blogIdeas array
-                     // ❇️ and deletes it using the @Environment's managedObjectContext
-                     let toDelete = self.contactList[indexSet.first!]
-                     self.managedObjectContext.delete(toDelete)
-                     
-                     do {
-                         try self.managedObjectContext.save()
-                     } catch {
-                         print(error)
-                     }
-                 }
-             }
-             .font(.headline)
-        }
-         .listStyle(GroupedListStyle())
-         .navigationBarTitle(Text("Contact List"))
-         .navigationBarItems(trailing: EditButton())
-        }
 
     }
 
