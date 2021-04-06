@@ -49,6 +49,7 @@ struct ContentView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
+                .onAppear { self.vc.startAccelerometer()}
             Spacer()
             TextField("Enter Contact Here", text: $text)
             
@@ -96,9 +97,9 @@ struct ContentView: View {
 //            Text("Status: \(self.status)")
           //  Spacer()
         }}
- /*
-        Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)").onAppear { self.vc.startAccelerometer()} // start accelerometer after this loads up
-        Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
+ 
+//        Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)") // start accelerometer after this loads up
+    /*    Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
     */
         NavigationView {
             List{

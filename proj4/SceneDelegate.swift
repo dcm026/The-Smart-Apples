@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
             let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
             // ❇️ Pass it to the ContentView through the managedObjectContext @Environment variable
-            let contentView = ContentView()
+            let contentView = MainView()
                                 .environment(\.managedObjectContext, managedObjectContext)
 
             window.rootViewController = UIHostingController(rootView: contentView)

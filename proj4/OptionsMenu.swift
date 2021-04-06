@@ -11,7 +11,8 @@ import SwiftUI
 struct OptionsMenu: View {
     var body: some View {
         NavigationView{
-            
+            Text("Options Go here")
+                .navigationBarTitle("Options")
         }
     }
 }
