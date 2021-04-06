@@ -34,6 +34,9 @@
 		6EFA1776254F35C100D682A7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6EF95E232541423D0065F48A /* Podfile */; };
 		6EFA1781254F35C600D682A7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6EF95E232541423D0065F48A /* Podfile */; };
 		6EFA1791254F362400D682A7 /* mailgunBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0AEEB3254F2F4900D675A5 /* mailgunBridge.m */; };
+		7CC0095D261BD356006A2C8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0095C261BD356006A2C8E /* MainView.swift */; };
+		7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00962261BD488006A2C8E /* OptionsMenu.swift */; };
+		7CC00971261BDB9C006A2C8E /* AlcorHealthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00970261BDB9C006A2C8E /* AlcorHealthApp.swift */; };
 		B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +125,9 @@
 		6E8EA1AA254BC36300FCCD5F /* Contact_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact_.swift; sourceTree = "<group>"; };
 		6E99C04F25106C7000744708 /* heart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart2.png; sourceTree = "<group>"; };
 		6EF95E232541423D0065F48A /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7CC0095C261BD356006A2C8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		7CC00962261BD488006A2C8E /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
+		7CC00970261BDB9C006A2C8E /* AlcorHealthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlcorHealthApp.swift; sourceTree = "<group>"; };
 		ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_proj4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -206,6 +212,7 @@
 		6E7335D324E0EDCC004192DA /* proj4 */ = {
 			isa = PBXGroup;
 			children = (
+				7CC00970261BDB9C006A2C8E /* AlcorHealthApp.swift */,
 				6E0AEEB3254F2F4900D675A5 /* mailgunBridge.m */,
 				6E0AEEB4254F2F4900D675A5 /* proj4-Bridging-Header.h */,
 				6E7335D424E0EDCC004192DA /* AppDelegate.swift */,
@@ -217,6 +224,8 @@
 				6E7335E224E0EDCE004192DA /* Info.plist */,
 				6E7335DC24E0EDCE004192DA /* Preview Content */,
 				6E7622F72550F9F000816418 /* ContactEditView.swift */,
+				7CC0095C261BD356006A2C8E /* MainView.swift */,
+				7CC00962261BD488006A2C8E /* OptionsMenu.swift */,
 			);
 			path = proj4;
 			sourceTree = "<group>";
@@ -480,7 +489,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E8EA1AB254BC36300FCCD5F /* Contact_.swift in Sources */,
+				7CC0095D261BD356006A2C8E /* MainView.swift in Sources */,
 				6E7335D524E0EDCC004192DA /* AppDelegate.swift in Sources */,
+				7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */,
+				7CC00971261BDB9C006A2C8E /* AlcorHealthApp.swift in Sources */,
 				6E8EA1A4254BB9EF00FCCD5F /* Model.xcdatamodeld in Sources */,
 				6E7335D724E0EDCC004192DA /* SceneDelegate.swift in Sources */,
 				6EFA1791254F362400D682A7 /* mailgunBridge.m in Sources */,
@@ -673,7 +685,7 @@
 				CODE_SIGN_ENTITLEMENTS = "proj4 WatchKit Extension/proj4 WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4 WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -683,7 +695,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -704,7 +716,7 @@
 				CODE_SIGN_ENTITLEMENTS = "proj4 WatchKit Extension/proj4 WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4 WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -714,7 +726,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -732,11 +744,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				IBSC_MODULE = proj4_WatchKit_Extension;
 				INFOPLIST_FILE = "proj4 WatchKit App/Info.plist";
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -753,11 +765,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				IBSC_MODULE = proj4_WatchKit_Extension;
 				INFOPLIST_FILE = "proj4 WatchKit App/Info.plist";
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -777,16 +789,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = proj4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "proj4/proj4-Bridging-Header.h";
@@ -805,16 +818,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.2.1;
+				CURRENT_PROJECT_VERSION = 0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = proj4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "proj4/proj4-Bridging-Header.h";

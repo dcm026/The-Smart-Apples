@@ -10,7 +10,7 @@ import SwiftUI
 import HealthKit
 //import mailgun
 
-struct ContentView: View {
+struct ContentViewWatch: View {
     private var healthStore = HKHealthStore()
     let heartRateQuantity = HKUnit(from: "count/min")
     @State private var showingAlert = false
@@ -120,6 +120,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentViewWatch()
     }
 }

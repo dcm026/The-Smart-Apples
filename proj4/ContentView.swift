@@ -16,7 +16,7 @@ struct contactRow : View {
         Text(c.email ?? "")
     }
 }
-/// Main View
+/// SOS View
 struct ContentView: View {
 
     @Environment(\.managedObjectContext) var managedObjectContext

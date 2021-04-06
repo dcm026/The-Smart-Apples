@@ -11,11 +11,11 @@ import Foundation
 import SwiftUI
 import WatchConnectivity
 
-class HostingController: WKHostingController<ContentView>{
+class HostingController: WKHostingController<ContentViewWatch>{
     //message time counter
     public var lastMessage: CFAbsoluteTime = 0
     
-    override var body: ContentView {
-        return ContentView()
+    override var body: ContentViewWatch {
+        return ContentViewWatch()
     }
 }
