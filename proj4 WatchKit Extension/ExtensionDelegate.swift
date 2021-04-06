@@ -192,7 +192,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
                 print("updating in background")
                 
                 //test print keychain vals
-                //print("status test keychain: ", status)
+                print("status test keychain: ", status)
                 keychaincheck = Data(from:000);
                 
                 keychaincheck = KeyChain.load(key: "MyNumber")
