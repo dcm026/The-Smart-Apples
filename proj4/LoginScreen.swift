@@ -10,20 +10,55 @@ import SwiftUI
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
+let storedUsername = "Myusername"
+let storedPassword = "Mypassword"
+
 struct LoginScreen : View {
     @State var username: String = ""
     @State var password: String = ""
+    
+    @State var authenticationFail: Bool = false
+    @State var authenticationSucceed: Bool = false
+    
+    @ObservedObject var keyboardResponder = KeyboardResponder()
     var body: some View {
+        ZStack{
+            //Background Color
+            Rectangle()
+                .fill(Color("Background"))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
         VStack {
             SignIn()
             UserImage()
             UsernameField(username: $username)
             PasswordField(password: $password)
-            Button(action: {print("Button tapped")}) {
+            if authenticationFail {
+                Text("Username or Password Incorrect. Please Retry.")
+                    .multilineTextAlignment(.center)
+                    .offset(y: -10)
+                    .foregroundColor(.red)
+                        }
+            Button(action: {
+                //If Username and Password are correct, Login is succesful
+                if self.username == storedUsername && self.password == storedPassword {
+                    self.authenticationSucceed = true
+                    self.authenticationFail = false
+                }
+                else {
+                    self.authenticationFail = true
+                }
+            }) {
                 LoginText()
+
             }
         }
         .padding()
+        .offset(y: -keyboardResponder.currentHeight*0.04)
+        if authenticationSucceed {
+            MainView()
+            }
+        }
     }
 }
 
