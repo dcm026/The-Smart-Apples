@@ -46,3 +46,14 @@ Use the command to extract the xip file once you place it in the guest OS: xip -
 
 ### 4. Follow the Installation Procedures steps 7 to 10.
 
+## Paired Device Simulation Setup.
+
+### Navigate to Window>Devices and Simulators>Simulators
+Select a device and ensure that on the right side of the screen under "Paired Watches" a watch is selected.
+
+### Verify build settings
+Select the project file "proj4" and go to General Settings.  Ensure that "Supports Running Without iOS App Installation" is unchecked.
+
+### Build your test scheme.
+On first build you will need to let the devices pair on the phone by going to the Watch App then you can start up the test application.
+
