@@ -82,7 +82,7 @@ extension Data {
     }
 }
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 //    private var healthStore = HKHealthStore()
 //    let heartRateQuantity = HKUnit(from: "count/min")
     let health: HKHealthStore = HKHealthStore()
@@ -96,9 +96,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     var keychaincheck = KeyChain.load(key: "MyNumber")
     
     
+    private func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : String]) -> Void) {
+        replyHandler(["message": "Hello Watch!"])
+    }
+
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    }
+    
     private var value = 0
     func applicationDidFinishLaunching() {
-//        let refreshDate = Date(timeIntervalSinceNow: 15.0)
+        //        let refreshDate = Date(timeIntervalSinceNow: 15.0)
 //
 //        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: nil) { (error) in
 //            if let error = error {
@@ -111,6 +118,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidBecomeActive() {
         print("became active")
+        if WCSession.isSupported() {
+                        let session = WCSession.default
+                        session.delegate = self
+                        session.activate()
+                    }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
