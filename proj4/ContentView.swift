@@ -120,7 +120,7 @@ struct sosButton: View {
     
     var body: some View {
         ZStack {
-            VStack{Text("SOS")
+            VStack{Text("Send Alert")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(Color.red)
