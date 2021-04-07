@@ -99,17 +99,17 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate{
        return WCSessionManager.shared;
    }
 
-    func sendToPhone(){
+    func sendToPhone(keyval: String) -> Void{
        guard self.sessionManager.isReachable else{
         print("session manager unreachable");
            return;
        }
-       
-       self.sessionManager.send();
+        
+        self.sessionManager.send(keyval: keyval);
    }
 
-   @IBAction func onSend() {
-       self.sendToPhone();
+    @IBAction func onSend(keyval: String) -> Void{
+        self.sendToPhone(keyval: keyval);
    }
    
     
@@ -238,7 +238,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate{
                             //print("TEST MESSAGE PASSING : \(samplemessage)")
                         //}, errorHandler: nil)
                 
-                sendToPhone();
+                sendToPhone(keyval: "testval");
 
                 
                 

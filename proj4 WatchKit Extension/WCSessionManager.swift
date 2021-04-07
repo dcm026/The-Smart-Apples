@@ -46,7 +46,7 @@ class WCSessionManager : NSObject{
         #endif
     }
     
-    func send(){
+    func send(keyval: String) -> Void{
         self.session.sendMessage(["title" : "gogo"], replyHandler: { (replyData) in
             print("Sending data has been completed. data[\(replyData)]");
         }) { (error) in
