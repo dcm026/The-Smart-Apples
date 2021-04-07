@@ -37,8 +37,8 @@
 		7CC0095D261BD356006A2C8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0095C261BD356006A2C8E /* MainView.swift */; };
 		7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00962261BD488006A2C8E /* OptionsMenu.swift */; };
 		7CC00993261BEEDE006A2C8E /* ContactViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */; };
-		7DD7B614261D4D6C000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B613261D4D6C000E7FE0 /* WCSessionManager.swift */; };
 		7DD7B61A261D520D000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */; };
+		7DD7B63C261D687A000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */; };
 		B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,8 +130,8 @@
 		7CC0095C261BD356006A2C8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7CC00962261BD488006A2C8E /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
 		7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewMain.swift; sourceTree = "<group>"; };
-		7DD7B613261D4D6C000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
+		7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_proj4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -259,9 +259,9 @@
 			children = (
 				6E41347224E2FCEF00FDE93C /* proj4 WatchKit Extension.entitlements */,
 				6E73360F24E0EDCF004192DA /* ContentView.swift */,
+				7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */,
 				6E73361124E0EDCF004192DA /* HostingController.swift */,
 				6E73361324E0EDCF004192DA /* ExtensionDelegate.swift */,
-				7DD7B613261D4D6C000E7FE0 /* WCSessionManager.swift */,
 				6E73361524E0EDCF004192DA /* NotificationController.swift */,
 				6E73361724E0EDCF004192DA /* NotificationView.swift */,
 				6E73361924E0EDD0004192DA /* Assets.xcassets */,
@@ -524,8 +524,8 @@
 				6E73361024E0EDCF004192DA /* ContentView.swift in Sources */,
 				6E73361624E0EDCF004192DA /* NotificationController.swift in Sources */,
 				6E73361424E0EDCF004192DA /* ExtensionDelegate.swift in Sources */,
-				7DD7B614261D4D6C000E7FE0 /* WCSessionManager.swift in Sources */,
 				6E73361824E0EDCF004192DA /* NotificationView.swift in Sources */,
+				7DD7B63C261D687A000E7FE0 /* WCSessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

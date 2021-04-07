@@ -82,7 +82,7 @@ extension Data {
     }
 }
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate{
 //    private var healthStore = HKHealthStore()
 //    let heartRateQuantity = HKUnit(from: "count/min")
     let health: HKHealthStore = HKHealthStore()
@@ -101,6 +101,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
     func sendToPhone(){
        guard self.sessionManager.isReachable else{
+        print("session manager unreachable");
            return;
        }
        
@@ -113,12 +114,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
    
     
     
-    private func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : String]) -> Void) {
-        replyHandler(["message": "Hello Watch!"])
-    }
+    //private func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : String]) -> Void) {
+        //replyHandler(["message": "Hello Watch!"])
+    //}
 
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    }
+    //func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    //}
     
     private var value = 0
     func applicationDidFinishLaunching() {
@@ -135,11 +136,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
     func applicationDidBecomeActive() {
         print("became active")
-        if WCSession.isSupported() {
-                        let session = WCSession.default
-                        session.delegate = self
-                        session.activate()
-                    }
+        //if WCSession.isSupported() {
+                        //let session = WCSession.default
+                        //session.delegate = self
+                        //session.activate()
+                    //}
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
