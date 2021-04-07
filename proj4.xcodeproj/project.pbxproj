@@ -34,6 +34,7 @@
 		6EFA1776254F35C100D682A7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6EF95E232541423D0065F48A /* Podfile */; };
 		6EFA1781254F35C600D682A7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6EF95E232541423D0065F48A /* Podfile */; };
 		6EFA1791254F362400D682A7 /* mailgunBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0AEEB3254F2F4900D675A5 /* mailgunBridge.m */; };
+		7C68A325261D3F0600ACC353 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C68A324261D3F0600ACC353 /* LoginScreen.swift */; };
 		7CC0095D261BD356006A2C8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0095C261BD356006A2C8E /* MainView.swift */; };
 		7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00962261BD488006A2C8E /* OptionsMenu.swift */; };
 		7CC00993261BEEDE006A2C8E /* ContactViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */; };
@@ -125,6 +126,7 @@
 		6E8EA1AA254BC36300FCCD5F /* Contact_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact_.swift; sourceTree = "<group>"; };
 		6E99C04F25106C7000744708 /* heart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart2.png; sourceTree = "<group>"; };
 		6EF95E232541423D0065F48A /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7C68A324261D3F0600ACC353 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		7CC0095C261BD356006A2C8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7CC00962261BD488006A2C8E /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
 		7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewMain.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				6E7335D424E0EDCC004192DA /* AppDelegate.swift */,
 				6E7335D624E0EDCC004192DA /* SceneDelegate.swift */,
 				6E7335D824E0EDCC004192DA /* ContentView.swift */,
+				7C68A324261D3F0600ACC353 /* LoginScreen.swift */,
 				7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */,
 				6327BBD625E6127C005015EF /* ViewController.swift */,
 				6E7335DA24E0EDCE004192DA /* Assets.xcassets */,
@@ -493,6 +496,7 @@
 				6E7335D524E0EDCC004192DA /* AppDelegate.swift in Sources */,
 				7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */,
 				6E8EA1A4254BB9EF00FCCD5F /* Model.xcdatamodeld in Sources */,
+				7C68A325261D3F0600ACC353 /* LoginScreen.swift in Sources */,
 				6E7335D724E0EDCC004192DA /* SceneDelegate.swift in Sources */,
 				7CC00993261BEEDE006A2C8E /* ContactViewMain.swift in Sources */,
 				6EFA1791254F362400D682A7 /* mailgunBridge.m in Sources */,
