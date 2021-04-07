@@ -74,8 +74,8 @@ struct ContentView: View {
 
             Spacer()
             
-            Text("Longitude: \(self.longitude) Latitude: \(self.latitude)")
-            Text("Address: \(self.streetname)")
+//            Text("Longitude: \(self.longitude) Latitude: \(self.latitude)")
+            Text("\(self.streetname)")
             Text("\(self.city), \(self.state) \(self.postalcode) \(self.country)")
 
             Spacer()
