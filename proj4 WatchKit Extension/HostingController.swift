@@ -9,12 +9,27 @@
 import WatchKit
 import Foundation
 import SwiftUI
-import WatchConnectivity
+
 
 class HostingController: WKHostingController<ContentViewWatch>{
     //message time counter
     public var lastMessage: CFAbsoluteTime = 0
-    
+    var sessionManager : WCSessionManager{
+       return WCSessionManager.shared;
+   }
+
+    func sendToPhone(){
+       guard self.sessionManager.isReachable else{
+           return;
+       }
+       
+       self.sessionManager.send();
+   }
+
+   @IBAction func onSend() {
+       self.sendToPhone();
+   }
+   
     override var body: ContentViewWatch {
         return ContentViewWatch()
     }

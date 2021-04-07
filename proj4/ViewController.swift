@@ -88,7 +88,14 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
             }
         }
+        
     }
+    
+    @IBAction func onActivate(_ sender: Any) {
+            WCSessionManager.shared.activate();
+            WCSessionManager.shared.send();
+        }
+    
 }
 
 
