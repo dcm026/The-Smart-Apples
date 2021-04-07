@@ -95,6 +95,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     let receivedData = KeyChain.load(key: "MyNumber")
     var keychaincheck = KeyChain.load(key: "MyNumber")
     
+    var sessionManager : WCSessionManager{
+       return WCSessionManager.shared;
+   }
+
+    func sendToPhone(){
+       guard self.sessionManager.isReachable else{
+           return;
+       }
+       
+       self.sessionManager.send();
+   }
+
+   @IBAction func onSend() {
+       self.sendToPhone();
+   }
+   
+    
     
     private func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : String]) -> Void) {
         replyHandler(["message": "Hello Watch!"])
@@ -203,8 +220,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
                 health.execute(heartRateQuery!)
                 print("updating in background")
                 
-                //test print keychain vals
-                print("status test keychain: ", status)
+                //test print keychain value
                 keychaincheck = Data(from:000);
                 
                 keychaincheck = KeyChain.load(key: "MyNumber")
@@ -216,11 +232,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
                 
                 
                 //message passing to Iphone for keychain test
-                WCSession.default.sendMessageData(Data(), replyHandler: { (data) in
-                            let samplemessage = self.keychaincheck
-                            print("TEST MESSAGE PASSING : \(samplemessage)")
-                        }, errorHandler: nil)
+                //WCSession.default.sendMessageData(Data(), replyHandler: { (data) in
+                            //let samplemessage = self.keychaincheck
+                            //print("TEST MESSAGE PASSING : \(samplemessage)")
+                        //}, errorHandler: nil)
                 
+                sendToPhone();
+
                 
                 
                 // Be sure to complete the background task once you’re done.
