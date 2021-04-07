@@ -69,12 +69,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        }
     
     // WATCH OS MESSAGE RECIEVE WITH REPLY HANDLER
-        func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-            print("SESSION MESSSAGE DATA: \(messageData)")
-            if let deviceId = UIDevice.current.identifierForVendor?.uuidString,
-                let data = deviceId.data(using: .utf8) {
-                print("REPLY HANDLER MESSSAGE DATA: \(data)")
-                replyHandler(data)
-            }
-        }
+        //func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+            //print("SESSION MESSSAGE DATA: \(messageData)")
+            //if let deviceId = UIDevice.current.identifierForVendor?.uuidString,
+                //let data = deviceId.data(using: .utf8) {
+                //print("REPLY HANDLER MESSSAGE DATA: \(data)")
+                //replyHandler(data)
+            //}
+        //}
 }

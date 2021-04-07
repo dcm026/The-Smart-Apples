@@ -20,11 +20,13 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
         super.viewDidLoad()
         
         //WatchConnectivity check and load
-        if (WCSession.isSupported()) {
-            let session = WCSession.default
-            session.delegate = self
-            session.activate()
-        }
+        //if (WCSession.isSupported()) {
+            //let session = WCSession.default
+            //session.delegate = self
+            //session.activate()
+        //}
+        WCSessionManager.shared.activate();
+        
     }
     
     //required WatchConnectivity funcs
@@ -88,7 +90,14 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
             }
         }
+        
     }
+    
+    @IBAction func onActivate(_ sender: Any) {
+            
+            WCSessionManager.shared.send();
+        }
+    
 }
 
 

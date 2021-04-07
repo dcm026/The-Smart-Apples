@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 import SwiftUI
-import WatchConnectivity
+
 
 class HostingController: WKHostingController<ContentViewWatch>{
     //message time counter
