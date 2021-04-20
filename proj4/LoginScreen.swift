@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
@@ -44,6 +45,7 @@ struct LoginScreen : View {
                 if self.username == storedUsername && self.password == storedPassword {
                     self.authenticationSucceed = true
                     self.authenticationFail = false
+                    hideKeyboard()
                 }
                 else {
                     self.authenticationFail = true
@@ -122,3 +124,4 @@ struct PasswordField: View {
             .padding(.bottom, 20)
     }
 }
+

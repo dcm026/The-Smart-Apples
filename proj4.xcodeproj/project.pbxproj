@@ -701,7 +701,7 @@
 				CODE_SIGN_ENTITLEMENTS = "proj4 WatchKit Extension/proj4 WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4 WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -711,7 +711,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -732,7 +732,7 @@
 				CODE_SIGN_ENTITLEMENTS = "proj4 WatchKit Extension/proj4 WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4 WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -742,7 +742,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -760,11 +760,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				IBSC_MODULE = proj4_WatchKit_Extension;
 				INFOPLIST_FILE = "proj4 WatchKit App/Info.plist";
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -781,11 +781,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				IBSC_MODULE = proj4_WatchKit_Extension;
 				INFOPLIST_FILE = "proj4 WatchKit App/Info.plist";
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -805,7 +805,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -815,7 +815,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "proj4/proj4-Bridging-Header.h";
@@ -834,7 +834,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.3;
+				CURRENT_PROJECT_VERSION = 0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"proj4/Preview Content\"";
 				DEVELOPMENT_TEAM = KXN88K42BV;
 				ENABLE_PREVIEWS = YES;
@@ -844,7 +844,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartapples.proj4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "proj4/proj4-Bridging-Header.h";

@@ -51,7 +51,7 @@ struct ContentView: View {
                 .frame(height: 100.0)
                 .onAppear { self.vc.startAccelerometer()}
             Spacer()
-            TextField("Enter Contact Here", text: $text)
+            TextField("Press Here to Enter Contact", text: $text)
             
             Button(action: {
                 let contact = Contact_(context: self.managedObjectContext)
@@ -63,6 +63,7 @@ struct ContentView: View {
                     print(error)
                 }
                 self.text = ""
+                hideKeyboard()
             }) {
                 Text("Save Contact")
                     .font(.title)
@@ -78,7 +79,7 @@ struct ContentView: View {
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-                    mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
+                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. \nThey are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
                  //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
                 }
             })
@@ -221,6 +222,5 @@ class LocationManager: NSObject, ObservableObject {
 
   }
 }
-
 
 
