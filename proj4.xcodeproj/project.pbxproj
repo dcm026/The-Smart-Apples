@@ -39,6 +39,9 @@
 		7CC0095D261BD356006A2C8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0095C261BD356006A2C8E /* MainView.swift */; };
 		7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00962261BD488006A2C8E /* OptionsMenu.swift */; };
 		7CC00993261BEEDE006A2C8E /* ContactViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */; };
+		7CD2487B262F823100D6ADE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2487A262F823100D6ADE6 /* GoogleService-Info.plist */; };
+		7CD2487C262F823100D6ADE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2487A262F823100D6ADE6 /* GoogleService-Info.plist */; };
+		7CD2487D262F823100D6ADE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2487A262F823100D6ADE6 /* GoogleService-Info.plist */; };
 		7DD7B61A261D520D000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */; };
 		7DD7B63C261D687A000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */; };
 		B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */; };
@@ -134,6 +137,7 @@
 		7CC0095C261BD356006A2C8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7CC00962261BD488006A2C8E /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
 		7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewMain.swift; sourceTree = "<group>"; };
+		7CD2487A262F823100D6ADE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_proj4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +237,7 @@
 				6E7335DA24E0EDCE004192DA /* Assets.xcassets */,
 				6E7335DF24E0EDCE004192DA /* LaunchScreen.storyboard */,
 				6E7335E224E0EDCE004192DA /* Info.plist */,
+				7CD2487A262F823100D6ADE6 /* GoogleService-Info.plist */,
 				6E7335DC24E0EDCE004192DA /* Preview Content */,
 				6E7622F72550F9F000816418 /* ContactEditView.swift */,
 				7CC0095C261BD356006A2C8E /* MainView.swift */,
@@ -418,6 +423,7 @@
 			files = (
 				6E7335E124E0EDCE004192DA /* LaunchScreen.storyboard in Resources */,
 				6E7335DE24E0EDCE004192DA /* Preview Assets.xcassets in Resources */,
+				7CD2487B262F823100D6ADE6 /* GoogleService-Info.plist in Resources */,
 				6EFA176A254F35BF00D682A7 /* Podfile in Resources */,
 				6E7335DB24E0EDCE004192DA /* Assets.xcassets in Resources */,
 			);
@@ -436,6 +442,7 @@
 			files = (
 				6E73360424E0EDCF004192DA /* Assets.xcassets in Resources */,
 				6E99C05025106C7000744708 /* heart2.png in Resources */,
+				7CD2487C262F823100D6ADE6 /* GoogleService-Info.plist in Resources */,
 				6EFA1781254F35C600D682A7 /* Podfile in Resources */,
 				6E73360224E0EDCE004192DA /* Interface.storyboard in Resources */,
 			);
@@ -446,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFA1776254F35C100D682A7 /* Podfile in Resources */,
+				7CD2487D262F823100D6ADE6 /* GoogleService-Info.plist in Resources */,
 				6E73361D24E0EDD0004192DA /* Preview Assets.xcassets in Resources */,
 				6E73361A24E0EDD0004192DA /* Assets.xcassets in Resources */,
 			);
