@@ -39,6 +39,7 @@
 		7CC0095D261BD356006A2C8E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0095C261BD356006A2C8E /* MainView.swift */; };
 		7CC00963261BD488006A2C8E /* OptionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00962261BD488006A2C8E /* OptionsMenu.swift */; };
 		7CC00993261BEEDE006A2C8E /* ContactViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */; };
+		7CD24861262F2A7200D6ADE6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD24860262F2A7200D6ADE6 /* HealthKit.framework */; };
 		7DD7B61A261D520D000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */; };
 		7DD7B63C261D687A000E7FE0 /* WCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */; };
 		B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */; };
@@ -134,6 +135,8 @@
 		7CC0095C261BD356006A2C8E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7CC00962261BD488006A2C8E /* OptionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenu.swift; sourceTree = "<group>"; };
 		7CC00992261BEEDE006A2C8E /* ContactViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewMain.swift; sourceTree = "<group>"; };
+		7CD2485B262F2A4F00D6ADE6 /* proj4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = proj4.entitlements; sourceTree = "<group>"; };
+		7CD24860262F2A7200D6ADE6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		7DD7B619261D520D000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		7DD7B63B261D687A000E7FE0 /* WCSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionManager.swift; sourceTree = "<group>"; };
 		ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_proj4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B90AF676C1A28C4F7CF4B6DA /* Pods_proj4.framework in Frameworks */,
+				7CD24861262F2A7200D6ADE6 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +189,7 @@
 		6E41347324E2FCEF00FDE93C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CD24860262F2A7200D6ADE6 /* HealthKit.framework */,
 				6E41347424E2FCEF00FDE93C /* HealthKit.framework */,
 				ECCFDFA214EA72EC45B86346 /* Pods_proj4.framework */,
 			);
@@ -220,6 +225,7 @@
 		6E7335D324E0EDCC004192DA /* proj4 */ = {
 			isa = PBXGroup;
 			children = (
+				7CD2485B262F2A4F00D6ADE6 /* proj4.entitlements */,
 				6E0AEEB3254F2F4900D675A5 /* mailgunBridge.m */,
 				6E0AEEB4254F2F4900D675A5 /* proj4-Bridging-Header.h */,
 				6E7335D424E0EDCC004192DA /* AppDelegate.swift */,
@@ -802,6 +808,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj4/proj4.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -831,6 +838,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proj4/proj4.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

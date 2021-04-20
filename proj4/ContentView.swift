@@ -27,6 +27,8 @@ struct ContentView: View {
     @ObservedObject var lm = LocationManager()
     @ObservedObject var vc = ViewController()
     
+    @GestureState var press = false
+
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
     var longitude: String { return("\(lm.location?.longitude ?? 0)") }
     var placemark: String { return("\(lm.placemark?.description ?? "XXX")") }
@@ -76,6 +78,8 @@ struct ContentView: View {
                 
             Button(action: {
 //                self.presentMailCompose()
+
+                
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
@@ -84,7 +88,7 @@ struct ContentView: View {
                 }
             })
             {
-                sosButton()
+            sosButton()
             }
 
             Spacer()
@@ -119,6 +123,9 @@ struct sosButton: View {
     @State var buttonTapped = false
     @State var buttonPressed = false
     
+    
+    @State var show = false
+    
     var body: some View {
         ZStack {
             VStack{Text("Send Alert")
@@ -144,6 +151,13 @@ struct sosButton: View {
                     .frame(width: 200.0, height: 200.0)//Button Size
                     .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
                     .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+                    .gesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                               .updating($press) { currentState, gestureState, transaction in
+                                gestureState = currentState}
+                    )
+
+                                
             }
         )
         .scaleEffect(buttonTapped ? 1.2 : 1)
