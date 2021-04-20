@@ -57,3 +57,25 @@ Select the project file "proj4" and go to General Settings.  Ensure that "Suppor
 ### Build your test scheme.
 On first build you will need to let the devices pair on the phone by going to the Watch App then you can start up the test application.
 
+### Swift Documentation 
+
+### What is Swift ?
+Swift is a general-purpose programming language that primarily follows the OOP. It was created and released by Apple in 2014. Many products made at Apple now entirely support Swift. While Apple is working to make Swift more accessible to different operating systems, it is primarily used on macOS.
+Find out more about Swift: https://developer.apple.com/swift/
+
+### Programming Tips
+1. Improve the readability of constants by creating a file consisting of constant structs in the application.
+
+2. Avoid NSObject and @objc as it can have negative impact on performance.
+
+3. Be cautious of using optionals because they can result in nil values and cause an application to crash.
+
+### Testing Documentation
+
+### Soak Test
+The application ran for approximately ten minutes. When the screen was turned off or the app was minimized, the accelerometer stopped. Besides the accelerometer not working properly in the background, everything worked as intended.
+
+### iWatch Experiments
+The goal of the iWatch experiments was to determine how the watch knows that it is being worn. This experiment was important because it was initially thought that the iWatch uses heartbeat for user detection, but results proved otherwise. The results showed that the unworn watch still reads a heartbeat value that is not zero on solid 
+surfaces like tables. David Milam, primary designer of experiment, concluded the watch uses conductivity and a light sensor to determine whether it is being worn or not.
+
