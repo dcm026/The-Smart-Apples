@@ -48,7 +48,7 @@ struct ContentView: View {
         VStack() {
             
             Text("Enter 10 Digit Phone Number for SOS Contact")
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
@@ -73,7 +73,7 @@ struct ContentView: View {
                 hideKeyboard()
             }) {
                 Text("Save Contact")
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.bold)
             }
 //
