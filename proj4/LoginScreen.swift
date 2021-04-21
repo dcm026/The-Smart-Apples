@@ -11,6 +11,7 @@ import UIKit
 import AuthenticationServices
 import CryptoKit
 import FirebaseAuth
+import FirebaseUI
 
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
@@ -108,46 +109,46 @@ struct LoginScreen : View {
                     let nonce = randomNonceString()
                     currentNonce = nonce
                     request.requestedScopes = [.fullName, .email]
-                     request.nonce = sha256(nonce)
+                    request.nonce = sha256(nonce)
                 },
                 onCompletion: { result in
                     switch result {
-                                                  case .success(let authResults):
-                                                      switch authResults.credential {
-                                                          case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                                                          
-                                                                  guard let nonce = currentNonce else {
-                                                                    fatalError("Invalid state: A login callback was received, but no login request was sent.")
-                                                                  }
-                                                                  guard let appleIDToken = appleIDCredential.identityToken else {
-                                                                      fatalError("Invalid state: A login callback was received, but no login request was sent.")
-                                                                  }
-                                                                  guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                                                                    print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                                                                    return
-                                                                  }
-                                                                 
-                                                                  let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
-                                                                  Auth.auth().signIn(with: credential) { (authResult, error) in
-                                                                      if (error != nil) {
-                                                                          // Error. If error.code == .MissingOrInvalidNonce, make sure
-                                                                          // you're sending the SHA256-hashed nonce as a hex string with
-                                                                          // your request to Apple.
-                                                                          print(error?.localizedDescription as Any)
-                                                                          return
-                                                                      }
-                                                                      print("signed in")
-                                                                    
-                                                                  }
-                                                          
-                                                              print("\(String(describing: Auth.auth().currentUser?.uid))")
-                                                      default:
-                                                        self.authenticationSucceed = true
-                                                        self.authenticationFail = false
-                                                              }
-                                                     default:
-                                                          break
-                                                  }
+                        case .success(let authResults):
+                            switch authResults.credential {
+                            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                
+                                guard let nonce = currentNonce else {
+                                    fatalError("Invalid state: A login callback was received, but no login request was sent.")
+                                }
+                                guard let appleIDToken = appleIDCredential.identityToken else {
+                                    fatalError("Invalid state: A login callback was received, but no login request was sent.")
+                                }
+                                guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                                    print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                                    return
+                                }
+                                
+                                let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
+                                Auth.auth().signIn(with: credential) { (authResult, error) in
+                                    if (error != nil) {
+                                        // Error. If error.code == .MissingOrInvalidNonce, make sure
+                                        // you're sending the SHA256-hashed nonce as a hex string with
+                                        // your request to Apple.
+                                        print(error?.localizedDescription as Any)
+                                        return
+                                    }
+                                    print("signed in")
+                                    
+                                }
+                                
+                                print("\(String(describing: Auth.auth().currentUser?.uid))")
+                            default:
+                                break
+                            }
+                        default:
+                            self.authenticationSucceed = true
+                            self.authenticationFail = false
+                        }
                 }
             )
             .frame(width: 280, height: 45, alignment: .center)
