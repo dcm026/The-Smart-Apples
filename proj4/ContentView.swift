@@ -74,7 +74,7 @@ struct ContentView: View {
 
             
             Spacer()
-                
+            Text("Hold Button 5 Seconds to Send Alert")
             Button(action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
