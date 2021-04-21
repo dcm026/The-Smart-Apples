@@ -9,6 +9,7 @@ import UserNotifications
 import WatchKit
 import HealthKit
 import WatchConnectivity
+import os
 
 func scheduleNotification(value:Int) {
     let center = UNUserNotificationCenter.current()
@@ -168,6 +169,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate{
                 guard let currData:HKQuantitySample = sample as? HKQuantitySample else { return }
             lastHeartRate = currData.quantity.doubleValue(for: heartRateUnit)
 //               lastHeartRate = sample.quantity.doubleValue(for: heartRateUnit)
+            let hrlog:StaticString = "Logging HR"
+            os_log(hrlog)
+            
            }
        }
         self.value = Int(lastHeartRate)
@@ -219,6 +223,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate{
 
                 }//eo-query
                 health.execute(heartRateQuery!)
+                let text:StaticString = "Updating HR Query"
+                os_log(text)
                 print("updating in background")
                 
                 //test print keychain value

@@ -9,6 +9,7 @@ import SwiftUI
 import MessageUI
 import mailgun
 import CoreData
+import os
 
 struct contactRow : View {
     var c: Contact_
@@ -81,6 +82,8 @@ struct ContentView: View {
 
                     mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. \nThey are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
                  //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
+                    let text:StaticString = "mail sent"
+                    os_log(text)
                 }
             })
             {
