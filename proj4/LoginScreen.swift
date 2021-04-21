@@ -90,15 +90,19 @@ struct LoginScreen : View {
                     .foregroundColor(.red)
                         }
             Button(action: {
+                Auth.auth().signIn(withEmail: username, password: password) { (result, error) in
                 //If Username and Password are correct, Login is succesful
-                if self.username == storedUsername && self.password == storedPassword {
-                    self.authenticationSucceed = true
-                    self.authenticationFail = false
+                if error != nil {
+                    print(error?.localizedDescription ?? "")
+                    self.authenticationFail = true
                     hideKeyboard()
                 }
                 else {
-                    self.authenticationFail = true
-                }
+                    
+                    self.authenticationSucceed = true
+                    self.authenticationFail = false
+                    hideKeyboard()
+                }}
             })
             {
                 LoginText()
@@ -205,7 +209,7 @@ struct LoginText: View {
 struct UsernameField: View {
     @Binding var username: String
     var body: some View {
-        TextField("Username", text: $username)
+        TextField("Email", text: $username)
             .padding()
             .background(lightGreyColor)
             .cornerRadius(5.0)
