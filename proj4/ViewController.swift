@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import CoreMotion
 import WatchConnectivity
+import AuthenticationServices
 
 
 class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
@@ -18,6 +19,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         //WatchConnectivity check and load
         //if (WCSession.isSupported()) {
