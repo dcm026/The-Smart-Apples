@@ -8,6 +8,7 @@
 
 import SwiftUI
 import UIKit
+import os
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
@@ -58,6 +59,8 @@ struct LoginScreen : View {
         .padding()
         .offset(y: -keyboardResponder.currentHeight*0.04)
         if authenticationSucceed {
+            let text:StaticString = "login sucessful"
+            os_log(text)
             MainView()
             }
         }

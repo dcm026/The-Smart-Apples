@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreMotion
 import WatchConnectivity
-
+import os
 
 class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     var motion = CMMotionManager();
@@ -89,6 +89,8 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 self.z = z
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
+                let actext:StaticString = "update Accelerometer"
+                os_log(actext)
             }
         }
         
