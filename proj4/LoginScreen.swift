@@ -162,8 +162,6 @@ struct LoginScreen : View {
         .padding()
         .offset(y: -keyboardResponder.currentHeight*0.04)
         if authenticationSucceed {
-            let text:StaticString = "login sucessful"
-            os_log(text)
             MainView()
             }
         }
