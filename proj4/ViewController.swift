@@ -15,6 +15,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     public var lastMessage: CFAbsoluteTime = 0
     private var movementThreshold: Double = 0.01
     private var updateFrequency = 0.01 // refresh frequency (in seconds)
+    private var lastRecorderAccess = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,27 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
             
             WCSessionManager.shared.send();
         }
+    
+    //MARK: Background Accelerometer
+    func runBackgroundAccelerometer() {
+            let recorder = CMSensorRecorder()
+            
+            // record data in background
+            if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+                print("Accelerometer available")
+                self.lastRecorderAccess = Date() // Int(NSDate().timeIntervalSince1970)
+                recorder.recordAccelerometer(forDuration: 5 * 60)  // Record for 5 minutes
+            }
+        
+            // read the data
+//            if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+//                var data = recorder.accelerometerData(from: self.lastRecorderAccess, to: Date())
+//                recorder.recordAccelerometer(forDuration: 300)
+
+    //            for (CMRecordedAccelerometerData,  in data) {
+    //               print(dat.acceleration.x)
+    //        }
+            }
     
 }
 

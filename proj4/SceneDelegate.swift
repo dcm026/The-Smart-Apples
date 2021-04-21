@@ -31,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     var placemark = ""
     @ObservedObject var lm = LocationManager()
     var userProvidedInput = true
+    @ObservedObject var vc = ViewController()
     
     func userNotificationCenter(
             _ center: UNUserNotificationCenter,
@@ -90,12 +91,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // Use this method to undo the changes made on entering the background.
     }
 
+    //MARK: Entered Background
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
+        vc.runBackgroundAccelerometer()
         scheduleLocalNotification()
         cancelAllPandingBGTask()
         scheduleAppRefresh()
