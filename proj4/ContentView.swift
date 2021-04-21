@@ -24,6 +24,7 @@ struct ContentView: View {
     @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
 
     @State private var text = ""
+    @State var isEditing: Bool = false
 
     @ObservedObject var lm = LocationManager()
     @ObservedObject var vc = ViewController()
@@ -45,19 +46,24 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
         
         VStack() {
-            Text("Enter Email Address for SOS Contact")
+            
+            Text("Enter 10 Digit Phone Number for SOS Contact")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
                 .onAppear { self.vc.startAccelerometer()}
-            Spacer()
             TextField("Press Here to Enter Contact", text: $text)
+                .keyboardType(.numberPad)
             
             Button(action: {
                 let contact = Contact_(context: self.managedObjectContext)
+                if self.text.count == 10{
                 contact.email = self.text
-                
+                }
+                else{
+                    hideKeyboard()
+                }
                 do {
                     try self.managedObjectContext.save()
                 } catch {
@@ -68,6 +74,7 @@ struct ContentView: View {
             }) {
                 Text("Save Contact")
                     .font(.title)
+                    .fontWeight(.bold)
             }
 //
 
@@ -131,6 +138,47 @@ struct sosButton: View {
                 .multilineTextAlignment(.center)
                 
             Image(systemName: "staroflife.fill")
+                .font(.system(size: 40, weight: .bold))
+                
+            }
+                
+            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
+            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
+            
+        }
+        .frame(width: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/)
+        .background(
+            ZStack{
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 200.0, height: 200.0)//Button Size
+                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
+                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+            }
+        )
+        .scaleEffect(buttonTapped ? 1.2 : 1)
+        .onTapGesture(count:1) {
+            self.buttonTapped.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.buttonTapped = false
+            }
+        }
+    }
+}
+
+struct addContactButton: View {
+    @State var buttonTapped = false
+    @State var buttonPressed = false
+    
+    var body: some View {
+        ZStack {
+            VStack{Text("Save Contact")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                
+            Image(systemName: "person.crop.circle.badge.plus")
                 .font(.system(size: 40, weight: .bold))
                 
             }
