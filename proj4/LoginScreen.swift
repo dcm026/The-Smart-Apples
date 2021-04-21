@@ -26,6 +26,7 @@ struct LoginScreen : View {
     
     @State var authenticationFail: Bool = false
     @State var authenticationSucceed: Bool = false
+    @State var appleAuthSucceed: Bool = false
     
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @State var currentNonce:String?
@@ -85,7 +86,7 @@ struct LoginScreen : View {
             UsernameField(username: $username)
             PasswordField(password: $password)
             if authenticationFail {
-                Text("Username or Password Incorrect. Please Retry.")
+                Text("Email or Password Incorrect. Please Retry.")
                     .multilineTextAlignment(.center)
                     .offset(y: -10)
                     .foregroundColor(.red)
@@ -130,6 +131,7 @@ struct LoginScreen : View {
                                 }
                                 guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
                                     print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                                    self.authenticationFail = true
                                     return
                                 }
                                 
@@ -143,17 +145,17 @@ struct LoginScreen : View {
                                         return
                                     }
                                     print("signed in")
-                                    
+                                    self.appleAuthSucceed = true
                                 }
                                 
                                 print("\(String(describing: Auth.auth().currentUser?.uid))")
                             default:
-                                break
+                                self.appleAuthSucceed = true
                             }
                         default:
-                            self.authenticationSucceed = true
-                            self.authenticationFail = false
+                            self.appleAuthSucceed = true
                         }
+                    self.appleAuthSucceed = true
                 }
             )
             .frame(width: 280, height: 45, alignment: .center)
@@ -163,6 +165,9 @@ struct LoginScreen : View {
         .offset(y: -keyboardResponder.currentHeight*0.04)
         if authenticationSucceed {
             MainView()
+            }
+            if appleAuthSucceed {
+                MainView()
             }
         }
     }
@@ -228,4 +233,3 @@ struct PasswordField: View {
             .padding(.bottom, 20)
     }
 }
-
