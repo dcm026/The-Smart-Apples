@@ -75,7 +75,8 @@ struct ContentView: View {
 
             
             Spacer()
-            if self.alertSent{Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
+            if self.alertSent{
+                Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
                 Button( action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
