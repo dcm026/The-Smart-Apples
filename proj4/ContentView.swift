@@ -23,7 +23,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
 
-    @State private var alertSent = true
+    @State private var alertSent = false
     @State private var text = ""
 
     @ObservedObject var lm = LocationManager()
@@ -88,7 +88,7 @@ struct ContentView: View {
                 }
             })
             {
-                sosButton()
+                clearButton()
                 }}
             else{
             Text("Hold Button 2 Seconds to Send Alert")
@@ -132,6 +132,46 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView()
+        }
+    }
+}
+
+struct clearButton: View {
+    @State var buttonTapped = false
+    @State var buttonPressed = false
+    
+    var body: some View {
+        ZStack {
+            VStack{Text("Cancel Alert")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                
+            Image(systemName: "xmark.octagon")
+                .font(.system(size: 40, weight: .bold))
+            }
+                
+            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
+            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
+            
+        }
+        .frame(width: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/)
+        .background(
+            ZStack{
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 200.0, height: 200.0)//Button Size
+                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
+                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+            }
+        )
+        .scaleEffect(buttonTapped ? 1.2 : 1)
+        .onTapGesture(count:1) {
+            self.buttonTapped.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.buttonTapped = false
+            }
         }
     }
 }
