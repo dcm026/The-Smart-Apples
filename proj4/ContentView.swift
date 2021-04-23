@@ -23,6 +23,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
 
+    @State private var alertSent = true
     @State private var text = ""
 
     @ObservedObject var lm = LocationManager()
@@ -74,21 +75,38 @@ struct ContentView: View {
 
             
             Spacer()
-            Text("Hold Button 5 Seconds to Send Alert")
-            Button(action: {
+            if self.alertSent{Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
+                Button( action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. \nThey are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
-                 //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
-                    let text:StaticString = "mail sent"
+                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
+                    let text:StaticString = "clear sent"
                     os_log(text)
+                    self.alertSent = false
                 }
             })
             {
                 sosButton()
-            }
+                }}
+            else{
+            Text("Hold Button 2 Seconds to Send Alert")
+                Button( action: {
+//                self.presentMailCompose()
+                for con in self.contactList {
+                    let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
+
+                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
+                 //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
+                    let text:StaticString = "mail sent"
+                    os_log(text)
+                    self.alertSent = true
+                }
+            })
+            {
+                sosButton()
+                }}
 
             Spacer()
 
