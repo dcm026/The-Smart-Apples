@@ -54,10 +54,10 @@ struct ContentView: View {
                 .onAppear { self.vc.startAccelerometer()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
-            
+            if length.contact.email == 10{
             Button(action: {
                 let contact = Contact_(context: self.managedObjectContext)
-                contact.email = self.text
+                    contact.email = self.text}
                 
                 do {
                     try self.managedObjectContext.save()
