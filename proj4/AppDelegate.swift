@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
        // ❇️ This is the out-of-the-box Core Data stack initialization code
+      var vc = ViewController()
+    
        var persistentContainer: NSPersistentContainer = {
            /*
             The persistent container for the application. This implementation
@@ -50,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 
     }
+    
 
 
 
@@ -68,14 +71,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                }
            }
        }
-    
-    // WATCH OS MESSAGE RECIEVE WITH REPLY HANDLER
-        //func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-            //print("SESSION MESSSAGE DATA: \(messageData)")
-            //if let deviceId = UIDevice.current.identifierForVendor?.uuidString,
-                //let data = deviceId.data(using: .utf8) {
-                //print("REPLY HANDLER MESSSAGE DATA: \(data)")
-                //replyHandler(data)
-            //}
-        //}
 }

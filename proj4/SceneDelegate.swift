@@ -99,6 +99,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
         vc.runBackgroundAccelerometer()
+        vc.LoadRecentHeartrate()
         scheduleLocalNotification()
         cancelAllPandingBGTask()
         scheduleAppRefresh()
@@ -122,6 +123,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkUserInput", using: nil) { task in
             //This task is cast with processing request (BGAppRefreshTask)
             self.checkUserInput(task: task as! BGAppRefreshTask)
+        }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
+            task in
+            self.checkheartRate(task: task as! BGAppRefreshTask)
         }
     }
 
@@ -187,6 +192,15 @@ extension SceneDelegate {
         //
         task.setTaskCompleted(success: true)
     }
+    func checkheartRate(task: BGAppRefreshTask){
+        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 1);
+        task.expirationHandler = {
+            //This Block call by System
+            //Cancel your all task's & queues
+        }
+        self.vc.LoadRecentHeartrate()        //
+        task.setTaskCompleted(success: true)    }
     
 }
 
