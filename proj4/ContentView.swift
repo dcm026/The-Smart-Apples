@@ -23,6 +23,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
 
+    @State private var alertSent = false
     @State private var text = ""
 
     @ObservedObject var lm = LocationManager()
@@ -78,21 +79,38 @@ struct ContentView: View {
 
             
             Spacer()
-                
-            Button(action: {
+            if self.alertSent{Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
+                Button( action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. \nThey are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
+                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
+                    let text:StaticString = "clear sent"
+                    os_log(text)
+                    self.alertSent = false
+                }
+            })
+            {
+                clearButton()
+                }}
+            else{
+            Text("Hold Button 2 Seconds to Send Alert")
+                Button( action: {
+//                self.presentMailCompose()
+                for con in self.contactList {
+                    let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
+
+                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
                  //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
                     let text:StaticString = "mail sent"
                     os_log(text)
+                    self.alertSent = true
                 }
             })
             {
                 sosButton()
-            }
+                }}
 
             Spacer()
 
@@ -118,6 +136,46 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView()
+        }
+    }
+}
+
+struct clearButton: View {
+    @State var buttonTapped = false
+    @State var buttonPressed = false
+    
+    var body: some View {
+        ZStack {
+            VStack{Text("Cancel Alert")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                
+            Image(systemName: "xmark.octagon")
+                .font(.system(size: 40, weight: .bold))
+            }
+                
+            .offset(x: buttonPressed ? -90 : 0, y: buttonPressed ? -90 : 0)
+            .rotation3DEffect(Angle(degrees: buttonPressed ? 20 : 0), axis: (x: 10, y: -10, z :0))
+            
+        }
+        .frame(width: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/250.0/*@END_MENU_TOKEN@*/)
+        .background(
+            ZStack{
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 200.0, height: 200.0)//Button Size
+                    .shadow(color: Color("LightShadow"), radius: 8, x: -8, y: -8)
+                    .shadow(color: Color("DarkShadow"), radius: 8, x: 8, y: 8)
+            }
+        )
+        .scaleEffect(buttonTapped ? 1.2 : 1)
+        .onTapGesture(count:1) {
+            self.buttonTapped.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.buttonTapped = false
+            }
         }
     }
 }
