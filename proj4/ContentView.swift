@@ -28,6 +28,8 @@ struct ContentView: View {
 
     @ObservedObject var lm = LocationManager()
     @ObservedObject var vc = ViewController()
+    @ObservedObject var hk =
+        HealthKitSetupAssistant()
     
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
     var longitude: String { return("\(lm.location?.longitude ?? 0)") }
@@ -52,6 +54,8 @@ struct ContentView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
                 .onAppear { self.vc.startAccelerometer()}
+                .onAppear {self.vc.authorizeHealthKit()}
+                .onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
             

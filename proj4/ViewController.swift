@@ -4,6 +4,7 @@ import CoreMotion
 import WatchConnectivity
 import AuthenticationServices
 import os
+import HealthKit
 
 
 
@@ -94,10 +95,56 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
                 let actext:StaticString = "update Accelerometer"
-                os_log(actext)
+                //os_log(actext)
             }
         }
         
+    }
+    
+    func authorizeHealthKit(){
+        HealthKitSetupAssistant.authorizeHealthKit { (authorized, error) in
+              
+          guard authorized else {
+                
+            let baseMessage = "HealthKit Authorization Failed"
+                
+            if let error = error {
+              print("\(baseMessage). Reason: \(error.localizedDescription)")
+            } else {
+              print(baseMessage)
+            }
+                
+            return
+          }
+              
+          print("HealthKit Successfully Authorized.")
+        }
+    }
+    
+    func LoadRecentHeartrate(){
+        //1. Use HealthKit to create the Height Sample Type
+        guard let heartRateSampleType = HKSampleType.quantityType(forIdentifier: .heartRate) else {
+          print("Height Sample Type is no longer available in HealthKit")
+          return
+        }
+            
+        HKDataStore.getMostRecentSample(for: heartRateSampleType) { (sample, error) in
+              
+          guard let sample = sample else {
+              
+            if let error = error {
+              print("Error retrieving heartrate sample Iphone HealthKit")
+            }
+                
+            return
+          }
+              
+          //2. Convert the height sample to meters, save to the profile model,
+          //   and update the user interface.
+          
+            print("update HR Iphone")
+            print(sample)
+        }
     }
     
     @IBAction func onActivate(_ sender: Any) {

@@ -8,7 +8,7 @@
 
 import HealthKit
 
-class HealthKitSetupAssistant {
+class HealthKitSetupAssistant: ObservableObject {
   
   private enum HealthkitSetupError: Error {
     case notAvailableOnDevice
@@ -29,5 +29,19 @@ class HealthKitSetupAssistant {
             
             completion(false, HealthkitSetupError.dataTypeNotAvailable)
             return
-    }  }
+    }
+    //3. Prepare a list of types you want HealthKit to read and write
+    let healthKitTypesToWrite: Set<HKSampleType> = [heartrate,
+                                                    oxygensat,
+                                                    HKObjectType.workoutType()]
+        
+    let healthKitTypesToRead: Set<HKObjectType> = [dateOfBirth,
+                                                   bloodType,
+                                                   HKObjectType.workoutType()]
+    //4. Request Authorization
+    HKHealthStore().requestAuthorization(toShare: healthKitTypesToWrite,
+                                         read: healthKitTypesToRead) { (success, error) in
+      completion(success, error)
+    }
+    }
 }
