@@ -99,7 +99,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
-        vc.runBackgroundAccelerometer()
+        vc.scheduleBackgroundAccelerometer()
+        vc.readRecordedAccelerometerData()
         vc.LoadRecentHeartrate()
         scheduleLocalNotification()
         cancelAllPandingBGTask()

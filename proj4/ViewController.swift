@@ -7,6 +7,13 @@ import os
 import HealthKit
 
 
+extension CMSensorDataList: Sequence {
+    public typealias Iterator = NSFastEnumerationIterator
+    public func makeIterator() -> NSFastEnumerationIterator {
+        return NSFastEnumerationIterator(self)
+    }
+}
+	
 
 class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     var motion = CMMotionManager();
@@ -20,6 +27,8 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     private var movementThreshold: Double = 0.01
     private var updateFrequency = 0.01 // refresh frequency (in seconds)
     private var lastRecorderAccess = Date()
+    private var rec: CMSensorRecorder = CMSensorRecorder() // accelerometer background recorder reference
+    private var bgAccPeridicity: Double = 1 * 60 // periodicity that accelerometer will record for (5 * 60 is 5 minutes)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,25 +162,44 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
         }
     
     //MARK: Background Accelerometer
-    func runBackgroundAccelerometer() {
-            let recorder = CMSensorRecorder()
-            
-            // record data in background
-            if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-                print("Accelerometer available")
-                self.lastRecorderAccess = Date() // Int(NSDate().timeIntervalSince1970)
-                recorder.recordAccelerometer(forDuration: 5 * 60)  // Record for 5 minutes
-            }
-        
-            // read the data
-//            if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-//                var data = recorder.accelerometerData(from: self.lastRecorderAccess, to: Date())
-//                recorder.recordAccelerometer(forDuration: 300)
-
-    //            for (CMRecordedAccelerometerData,  in data) {
-    //               print(dat.acceleration.x)
+    //    func scheduleBackgroundAccelerometer() {
+    //        // record data in background
+    //        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+    //            print("run background accelerometer")
+    //            self.lastRecorderAccess = Date()
+    //            self.rec.recordAccelerometer(forDuration: 5 * 60)  // Record for 5 minutes
     //        }
+    //    }
+        
+    // perform asynchronously and call callback function to get data at end of recorder lifetime
+    @IBAction func scheduleBackgroundAccelerometer() {
+        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+            print("run background accelerometer")
+            self.lastRecorderAccess = Date()
+            DispatchQueue.global(qos: .background).async {
+                self.rec.recordAccelerometer(forDuration: self.bgAccPeridicity)
             }
+            perform(#selector(recordedAccCallback), with: nil, afterDelay: self.bgAccPeridicity)
+        }
+    }
+    
+    @objc func recordedAccCallback() {
+        DispatchQueue.global(qos: .background).async {
+            self.readRecordedAccelerometerData()
+        }
+    }
+    
+    func readRecordedAccelerometerData() {
+        if let list = self.rec.accelerometerData(from: Date(timeIntervalSinceNow: -(self.bgAccPeridicity)), to: Date()) {
+            for datum in list {
+                if let accdatum = datum as? CMRecordedAccelerometerData {
+                    let accel = accdatum.acceleration
+                    let t = accdatum.timestamp
+//                    print(t, accel)
+                }
+            }
+        }
+    }
     
 }
 
