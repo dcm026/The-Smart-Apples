@@ -54,8 +54,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Alcor Health">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E7335FA24E0EDCE004192DA"
@@ -63,7 +65,7 @@
             BlueprintName = "proj4 WatchKit App"
             ReferencedContainer = "container:proj4.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,8 +73,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Alcor Health">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E7335FA24E0EDCE004192DA"
@@ -80,7 +84,16 @@
             BlueprintName = "proj4 WatchKit App"
             ReferencedContainer = "container:proj4.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6E7335FA24E0EDCE004192DA"
+            BuildableName = "proj4 WatchKit App.app"
+            BlueprintName = "proj4 WatchKit App"
+            ReferencedContainer = "container:proj4.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -58,18 +58,23 @@ struct ContentView: View {
                 //.onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
+                .keyboardType(.numberPad)
             
             Button(action: {
                 let contact = Contact_(context: self.managedObjectContext)
-                contact.email = self.text
+                contact.email = self.text + "@txt.att.net"
                 
+                if self.text.count == 10 {
                 do {
                     try self.managedObjectContext.save()
                 } catch {
                     print(error)
                 }
                 self.text = ""
-                hideKeyboard()
+                    hideKeyboard()}
+                else{
+                    hideKeyboard()
+                }
             }) {
                 Text("Save Contact")
                     .font(.title)
@@ -86,7 +91,8 @@ struct ContentView: View {
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-                    mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
+                    mailgun?.sendMessage(to: con.email ?? "" + "@txt.att.net", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
+                    mailgun?.sendMessage(to: con.email ?? "" + "@tmomail.net", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
                     let text:StaticString = "clear sent"
                     os_log(text)
                     self.alertSent = false
