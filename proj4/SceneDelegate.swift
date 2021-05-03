@@ -99,12 +99,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
+        
+        cancelAllPandingBGTask()
         vc.scheduleBackgroundAccelerometer()
         vc.readRecordedAccelerometerData()
         vc.LoadRecentHeartrate()
         scheduleLocalNotification()
-        cancelAllPandingBGTask()
         scheduleAppRefresh()
+        scheduleheartRate()
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
    
@@ -127,9 +129,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
             //This task is cast with processing request (BGAppRefreshTask)
             self.checkUserInput(task: task as! BGAppRefreshTask)
         }
+        print("attempt to register checkheartRatetask")
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
             task in
-            self.checkheartRate(task: task as! BGAppRefreshTask)
+            self.checkheartRate(task: task as! BGProcessingTask)
         }
     }
 
@@ -153,6 +156,20 @@ extension SceneDelegate {
         } catch {
             print("Could not schedule app refresh: \(error)")
         }
+    }
+    
+    func scheduleheartRate(){
+        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 0.1 * 60) // App Refresh after 2 minute.
+        //Note :: EarliestBeginDate should not be set to too far into the future.
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            print("scheduling heart check")
+        } catch {
+            print("Could not schedule heart check: \(error)")
+        
+        }
+        
     }
     
     func handleAppRefreshTask(task: BGAppRefreshTask) {
@@ -195,22 +212,24 @@ extension SceneDelegate {
         //
         task.setTaskCompleted(success: true)
     }
-    func checkheartRate(task: BGAppRefreshTask){
-        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 0.10 * 60);
+    func checkheartRate(task: BGProcessingTask){
+        //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        //request.earliestBeginDate = Date(timeIntervalSinceNow: 0.10 * 60);
         print("checking heartrate in background")
         task.expirationHandler = {
-            //This Block call by System
-            //Cancel your all task's & queues
+            task.setTaskCompleted(success: false)
+            print("task failed")
         }
         self.vc.LoadRecentHeartrate()        //
+        
+        //do {
+            //try BGTaskScheduler.shared.submit(request)
+            //print("scheduling heartratecheck")
+        //} catch {
+            //print("Could not schedule heartratecheck: \(error)")
+        //}
         task.setTaskCompleted(success: true)
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            print("scheduling refresh")
-        } catch {
-            print("Could not schedule heartratecheck: \(error)")
-        }
+        
     }
     
 }
