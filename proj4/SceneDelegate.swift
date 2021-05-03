@@ -49,10 +49,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Use a UIHostingController as window root view controller.
-        print("launching app")
+        print("launching app, SceneDelegate")
         UNUserNotificationCenter.current().delegate = self
         registerBackgroundTask()
         registerLocalNotification()
+        vc.authorizeHealthKit()
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -98,7 +99,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
-        vc.runBackgroundAccelerometer()
+        vc.scheduleBackgroundAccelerometer()
+        vc.readRecordedAccelerometerData()
+        vc.LoadRecentHeartrate()
         scheduleLocalNotification()
         cancelAllPandingBGTask()
         scheduleAppRefresh()
@@ -107,6 +110,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
    
     //MARK: Regiater BackGround Tasks
     private func registerBackgroundTask() {
+        print("registering background tasks")
         
 //        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.SO.imagefetcher", using: nil) { task in
 //            //This task is cast with processing request (BGProcessingTask)
@@ -122,6 +126,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkUserInput", using: nil) { task in
             //This task is cast with processing request (BGAppRefreshTask)
             self.checkUserInput(task: task as! BGAppRefreshTask)
+        }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
+            task in
+            self.checkheartRate(task: task as! BGAppRefreshTask)
         }
     }
 
@@ -187,6 +195,16 @@ extension SceneDelegate {
         //
         task.setTaskCompleted(success: true)
     }
+    func checkheartRate(task: BGAppRefreshTask){
+        //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        //request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 1);
+        print("checking heartrate in background")
+        task.expirationHandler = {
+            //This Block call by System
+            //Cancel your all task's & queues
+        }
+        self.vc.LoadRecentHeartrate()        //
+        task.setTaskCompleted(success: true)    }
     
 }
 
