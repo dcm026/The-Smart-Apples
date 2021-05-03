@@ -80,6 +80,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        cancelAllPandingBGTask()
+        //vc.scheduleBackgroundAccelerometer()
+        //vc.readRecordedAccelerometerData()
+        //vc.LoadRecentHeartrate()
+        scheduleLocalNotification()
+        scheduleAppRefresh()
+        scheduleheartRate()
+        
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -103,7 +111,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         cancelAllPandingBGTask()
         vc.scheduleBackgroundAccelerometer()
         vc.readRecordedAccelerometerData()
-        vc.LoadRecentHeartrate()
+        //vc.LoadRecentHeartrate()
         scheduleLocalNotification()
         scheduleAppRefresh()
         scheduleheartRate()
@@ -132,7 +140,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         print("attempt to register checkheartRatetask")
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
             task in
-            self.checkheartRate(task: task as! BGProcessingTask)
+            self.checkheartRate(task: task as! BGAppRefreshTask)
         }
     }
 
@@ -160,7 +168,7 @@ extension SceneDelegate {
     
     func scheduleheartRate(){
         let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 0.1 * 60) // App Refresh after 2 minute.
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60) // App Refresh after 2 minute.
         //Note :: EarliestBeginDate should not be set to too far into the future.
         do {
             try BGTaskScheduler.shared.submit(request)
@@ -212,10 +220,11 @@ extension SceneDelegate {
         //
         task.setTaskCompleted(success: true)
     }
-    func checkheartRate(task: BGProcessingTask){
+    func checkheartRate(task: BGAppRefreshTask){
         //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
         //request.earliestBeginDate = Date(timeIntervalSinceNow: 0.10 * 60);
         print("checking heartrate in background")
+        self.hrNotification()
         task.expirationHandler = {
             task.setTaskCompleted(success: false)
             print("task failed")
@@ -282,4 +291,25 @@ extension SceneDelegate {
         }
     }
     
+    func hrNotification() {
+        // Create Notification Content
+        let notificationContent = UNMutableNotificationContent()
+        
+        // Configure Notification Content
+        notificationContent.title = "Heart Rate Updated"
+        notificationContent.body = "Alcor Health Monitoring App is reading heartrate"
+        
+        // Add Trigger
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
+        
+        // Create Notification Request
+        let notificationRequest = UNNotificationRequest(identifier: "local_notification", content: notificationContent, trigger: notificationTrigger)
+        
+        // Add Request to User Notification Center
+        UNUserNotificationCenter.current().add(notificationRequest) { (error) in
+            if let error = error {
+                print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
 }
