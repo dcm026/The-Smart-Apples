@@ -54,8 +54,8 @@ struct ContentView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
                 .onAppear { self.vc.startAccelerometer()}
-                .onAppear {self.vc.authorizeHealthKit()}
-                .onAppear {self.vc.LoadRecentHeartrate()}
+                //.onAppear {self.vc.authorizeHealthKit()}
+                //.onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
             

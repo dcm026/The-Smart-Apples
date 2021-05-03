@@ -49,10 +49,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Use a UIHostingController as window root view controller.
-        print("launching app")
+        print("launching app, SceneDelegate")
         UNUserNotificationCenter.current().delegate = self
         registerBackgroundTask()
         registerLocalNotification()
+        vc.authorizeHealthKit()
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -108,6 +109,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
    
     //MARK: Regiater BackGround Tasks
     private func registerBackgroundTask() {
+        print("registering background tasks")
         
 //        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.SO.imagefetcher", using: nil) { task in
 //            //This task is cast with processing request (BGProcessingTask)
@@ -193,8 +195,9 @@ extension SceneDelegate {
         task.setTaskCompleted(success: true)
     }
     func checkheartRate(task: BGAppRefreshTask){
-        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 1);
+        //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        //request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 1);
+        print("checking heartrate in background")
         task.expirationHandler = {
             //This Block call by System
             //Cancel your all task's & queues
