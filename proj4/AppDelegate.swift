@@ -11,6 +11,8 @@ import CoreData
 import BackgroundTasks
 import WatchConnectivity
 import Firebase
+import os
+import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

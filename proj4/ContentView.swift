@@ -49,8 +49,8 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
         
         VStack() {
-            Text("Enter Email Address for SOS Contact")
-                .font(.largeTitle)
+            Text("Enter 10 Digit Number for Emergency Contact")
+                .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
