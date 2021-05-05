@@ -20,7 +20,7 @@ struct OptionsMenu: View {
         VStack() {
             Text("Settings")
             HStack {
-                Text("Inactivity Threshold (time remaining still before alert is automatic alert is sent out)")
+                Text("Inactivity Threshold (time remaining still before alert is automatically sent out)")
                 TextField("Input value here", text: $inactivityThreshold)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.decimalPad)
