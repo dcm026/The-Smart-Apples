@@ -80,6 +80,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        cancelAllPandingBGTask()
+        //vc.scheduleBackgroundAccelerometer()
+        //vc.readRecordedAccelerometerData()
+        //vc.LoadRecentHeartrate()
+        scheduleLocalNotification()
+        scheduleAppRefresh()
+        scheduleheartRate()
+        
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -99,12 +107,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
         print("entered background")
+        
+        cancelAllPandingBGTask()
         vc.scheduleBackgroundAccelerometer()
         vc.readRecordedAccelerometerData()
-        vc.LoadRecentHeartrate()
+        //vc.LoadRecentHeartrate()
         scheduleLocalNotification()
-        cancelAllPandingBGTask()
         scheduleAppRefresh()
+        scheduleheartRate()
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
    
@@ -127,6 +137,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
             //This task is cast with processing request (BGAppRefreshTask)
             self.checkUserInput(task: task as! BGAppRefreshTask)
         }
+        print("attempt to register checkheartRatetask")
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
             task in
             self.checkheartRate(task: task as! BGAppRefreshTask)
@@ -153,6 +164,20 @@ extension SceneDelegate {
         } catch {
             print("Could not schedule app refresh: \(error)")
         }
+    }
+    
+    func scheduleheartRate(){
+        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60) // App Refresh after 2 minute.
+        //Note :: EarliestBeginDate should not be set to too far into the future.
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            print("scheduling heart check")
+        } catch {
+            print("Could not schedule heart check: \(error)")
+        
+        }
+        
     }
     
     func handleAppRefreshTask(task: BGAppRefreshTask) {
@@ -197,14 +222,24 @@ extension SceneDelegate {
     }
     func checkheartRate(task: BGAppRefreshTask){
         //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
-        //request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 1);
+        //request.earliestBeginDate = Date(timeIntervalSinceNow: 0.10 * 60);
         print("checking heartrate in background")
+        self.hrNotification()
         task.expirationHandler = {
-            //This Block call by System
-            //Cancel your all task's & queues
+            task.setTaskCompleted(success: false)
+            print("task failed")
         }
         self.vc.LoadRecentHeartrate()        //
-        task.setTaskCompleted(success: true)    }
+        
+        //do {
+            //try BGTaskScheduler.shared.submit(request)
+            //print("scheduling heartratecheck")
+        //} catch {
+            //print("Could not schedule heartratecheck: \(error)")
+        //}
+        task.setTaskCompleted(success: true)
+        
+    }
     
 }
 
@@ -256,4 +291,25 @@ extension SceneDelegate {
         }
     }
     
+    func hrNotification() {
+        // Create Notification Content
+        let notificationContent = UNMutableNotificationContent()
+        
+        // Configure Notification Content
+        notificationContent.title = "Heart Rate Updated"
+        notificationContent.body = "Alcor Health Monitoring App is reading heartrate"
+        
+        // Add Trigger
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
+        
+        // Create Notification Request
+        let notificationRequest = UNNotificationRequest(identifier: "local_notification", content: notificationContent, trigger: notificationTrigger)
+        
+        // Add Request to User Notification Center
+        UNUserNotificationCenter.current().add(notificationRequest) { (error) in
+            if let error = error {
+                print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
 }

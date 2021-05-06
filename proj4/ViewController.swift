@@ -95,6 +95,8 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                     self.lastMovementTime = Int(date.timeIntervalSince1970)
                 }
                 
+                
+                
                 // print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
                 //print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
                 
@@ -104,6 +106,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
                 let actext:StaticString = "update Accelerometer"
+                if self.lastUpdateTime == 100 {}
                 //os_log(actext)
             }
         }

@@ -25,6 +25,7 @@ struct ContentView: View {
 
     @State private var alertSent = false
     @State private var text = ""
+    @State private var n = 0
 
     @ObservedObject var lm = LocationManager()
     @ObservedObject var vc = ViewController()
@@ -48,8 +49,8 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
         
         VStack() {
-            Text("Enter Email Address for SOS Contact")
-                .font(.largeTitle)
+            Text("Enter 10 Digit Number for Emergency Contact")
+                .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
@@ -58,17 +59,35 @@ struct ContentView: View {
                 //.onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
+                .keyboardType(.numberPad)
             
             Button(action: {
+                n = 3
+                while n >= 0 && self.text.count == 10{
                 let contact = Contact_(context: self.managedObjectContext)
-                contact.email = self.text
-                
+                    if n == 3{
+                contact.email = self.text + "@txt.att.net"
+                    }
+                    else if n == 2{
+                        contact.email = self.text + "@tmomail.net"
+                    }
+                    else if n == 1{
+                        contact.email = self.text + "@vtext.com"
+                    }
+                    else if n == 0{
+                        contact.email = self.text + "@messaging.sprintpcs.com"
+                    }
                 do {
                     try self.managedObjectContext.save()
                 } catch {
                     print(error)
                 }
-                self.text = ""
+                    if n == 0{
+                    self.text = ""
+                    }
+                    n = n - 1
+                }
+
                 hideKeyboard()
             }) {
                 Text("Save Contact")
@@ -79,13 +98,15 @@ struct ContentView: View {
 
             
             Spacer()
-            if self.alertSent{Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
+            if self.alertSent{
+                Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
                 Button( action: {
 //                self.presentMailCompose()
                 for con in self.contactList {
                     let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
                     mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
+                    mailgun?.sendMessage(to: con.email ?? "" + "@tmomail.net", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
                     let text:StaticString = "clear sent"
                     os_log(text)
                     self.alertSent = false

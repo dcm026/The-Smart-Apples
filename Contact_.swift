@@ -14,6 +14,7 @@ import CoreData
 // ❇️ BlogIdea code generation is turned OFF in the xcdatamodeld file
 public class Contact_: NSManagedObject, Identifiable {
     @NSManaged public var email: String?
+    @NSManaged public var carrier: String?
 }
 
 extension Contact_ {

@@ -17,8 +17,8 @@ import os
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
-let storedUsername = "Myusername"
-let storedPassword = "Mypassword"
+//let storedUsername = "Myusername"
+//let storedPassword = "Mypassword"
 
 struct LoginScreen : View {
     @State var username: String = ""
@@ -26,7 +26,6 @@ struct LoginScreen : View {
     
     @State var authenticationFail: Bool = false
     @State var authenticationSucceed: Bool = false
-    @State var appleAuthSucceed: Bool = false
     
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @State var currentNonce:String?
@@ -145,17 +144,16 @@ struct LoginScreen : View {
                                         return
                                     }
                                     print("signed in")
-                                    self.appleAuthSucceed = true
                                 }
                                 
                                 print("\(String(describing: Auth.auth().currentUser?.uid))")
+                                self.authenticationSucceed = true
                             default:
-                                self.appleAuthSucceed = true
+                                break
                             }
                         default:
-                            self.appleAuthSucceed = true
-                        }
-                    self.appleAuthSucceed = true
+                            break
+                    }
                 }
             )
             .frame(width: 280, height: 45, alignment: .center)
@@ -165,9 +163,6 @@ struct LoginScreen : View {
         .offset(y: -keyboardResponder.currentHeight*0.04)
         if authenticationSucceed {
             MainView()
-            }
-            if appleAuthSucceed {
-                MainView()
             }
         }
     }
