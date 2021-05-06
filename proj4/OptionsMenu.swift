@@ -13,7 +13,7 @@ struct OptionsMenu: View{
     @State public var automaticSoS = "1" // "1" will automatically send out SoS
     @State public var calibrationFactor = ".01" // accelerometer calibration factor (higher values will decrease sensitivity to movement), defualt is .01
     
-    let vc = sceneDel.vc
+    @ObservedObject var vc:ViewController = sceneDel.vc
     @Environment(\.managedObjectContext) var managedObjectContext
     var body: some View {
         VStack() {
@@ -55,6 +55,7 @@ struct OptionsMenu: View{
             Text("Accelerometer Data")
             Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)")
             Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
+            
         }  
         
     }

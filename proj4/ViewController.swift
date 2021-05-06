@@ -18,7 +18,7 @@ extension CMSensorDataList: Sequence {
 class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     var motion = CMMotionManager();
     // store last x, y, and z measurement
-    public var x: Double = 0.0
+    @Published public var x: Double = 0.0
     public var y: Double = 0.0
     public var z: Double = 0.0
     public var lastMovementTime = -1 // unix time of last movement according to accelerometer data
@@ -104,7 +104,6 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 self.y = y
                 self.z = z
                 
-            
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
                 let actext:StaticString = "update Accelerometer"
