@@ -5,7 +5,8 @@ import WatchConnectivity
 import AuthenticationServices
 import os
 import HealthKit
-
+import mailgun
+import SwiftUI
 
 extension CMSensorDataList: Sequence {
     public typealias Iterator = NSFastEnumerationIterator
@@ -24,15 +25,20 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     public var lastMovementTime = -1 // unix time of last movement according to accelerometer data
     public var lastUpdateTime = -1
     public var lastMessage: CFAbsoluteTime = 0
-    private var movementThreshold: Double = 0.01
+    
     private var updateFrequency = 0.1 // refresh frequency (in seconds)
     private var lastRecorderAccess = Date()
     private var rec: CMSensorRecorder = CMSensorRecorder() // accelerometer background recorder reference
     private var bgAccPeridicity: Double = 1 * 60 // periodicity that accelerometer will record for (5 * 60 is 5 minutes)
+//    @Environment(\.managedObjectContext) var managedObjectContext
+//    @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
+    private var alertSent = false
+    public var inactivityThreshold: Int = 3600 // time of lack of movement in seconds before automatic SoS alert is sent out
+    public var automaticSoS: String = "0" // "1" will automatically send out SoS
+    public var movementThreshold: Double = 0.02 // accelerometer calibration factor (higher values will decrease sensitivity to movement),
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         //WatchConnectivity check and load
         //if (WCSession.isSupported()) {
@@ -107,11 +113,38 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
                 let actext:StaticString = "update Accelerometer"
-                if self.lastUpdateTime == 100 {}
                 //os_log(actext)
+                
+//                print("DEFAULT automatic SOS: \(self.defaults.string(forKey: "defaultAutomaticSoS"))")
+//                do {
+//                    print("automatic SOS: \(self.defaults.string(forKey: "automaticSoS"))")
+//                } catch {
+//                    print("value not defined")
+//                }
+                
+                print("User settings: inactivityThreshold \(self.inactivityThreshold) movementThreshold: \(self.movementThreshold) automaticSoS: \(self.automaticSoS)")
+                
+                if (self.lastUpdateTime - self.lastMovementTime) > self.inactivityThreshold && self.alertSent == false && self.automaticSoS == "1" {
+                    self.sendSOS()
+                    self.alertSent = true
+                }
             }
         }
         
+    }
+    
+    func sendSOS() {
+//        for con in self.contactList {
+//            let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
+//
+//            mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/") // \(self.latitude),\(self.longitude)")
+//            let text:StaticString = "mail sent"
+//            os_log(text)
+        let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
+        
+        mailgun?.sendMessage(to: "<enter phone # here>@txt.att.net", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/")
+            self.alertSent = true
+//        }
     }
     
     func authorizeHealthKit(){

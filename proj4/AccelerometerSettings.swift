@@ -10,8 +10,8 @@ import SwiftUI
 
 struct AccelerometerSettings: View{
     @State public var inactivityThreshold = "3600" // time of lack of movement in seconds before automatic SoS alert is sent out
-    @State public var automaticSoS = "1" // "1" will automatically send out SoS
-    @State public var calibrationFactor = ".01" // accelerometer calibration factor (higher values will decrease sensitivity to movement), defualt is .01
+    @State public var automaticSoS = "0" // "1" will automatically send out SoS
+    @State public var calibrationFactor = ".02" // accelerometer calibration factor (higher values will decrease sensitivity to movement), defualt is .02
     
     @ObservedObject var vc:ViewController = sceneDel.vc
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -26,17 +26,19 @@ struct AccelerometerSettings: View{
 
                 Button("Submit") {
                     print("$inactivityThreshold set to: \($inactivityThreshold)")
+                    vc.inactivityThreshold = Int(inactivityThreshold)!
                     hideKeyboard()
                 }
             }
             HStack {
-                Text("Accelerometer Calibration Factor (default is .01)")
+                Text("Accelerometer Calibration Factor (default is \(self.calibrationFactor))")
                 TextField("Input value here", text: $calibrationFactor)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.decimalPad)
 
                 Button("Submit") {
                     print("$calibrationFactor set to: \($calibrationFactor)")
+                    vc.movementThreshold = Double(calibrationFactor)!
                     hideKeyboard()
                 }
             }
@@ -47,7 +49,8 @@ struct AccelerometerSettings: View{
                     .keyboardType(.decimalPad)
 
                 Button("Submit") {
-                    print("$inactivityThreshold set to: \($automaticSoS)")
+                    print("$automaticSoS set to: \($automaticSoS)")
+                    vc.automaticSoS = automaticSoS
                     hideKeyboard()
                 }
             }
@@ -55,7 +58,7 @@ struct AccelerometerSettings: View{
             Text("Accelerometer Data")
             Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)")
             Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
-            
+//            Text("Time Threshold: \(self.vc.inactivityThreshold) Calibration: \(self.vc.movementThreshold) AutoSOS: \(self.vc.automaticSoS)")
         }
         
     }
