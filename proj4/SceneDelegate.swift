@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     var placemark = ""
     @ObservedObject var lm = LocationManager()
     var userProvidedInput = true
-    @ObservedObject var vc = ViewController()
+    // @ObservedObject var vc = ViewController()
     
     func userNotificationCenter(
             _ center: UNUserNotificationCenter,
@@ -53,7 +53,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         UNUserNotificationCenter.current().delegate = self
         registerBackgroundTask()
         registerLocalNotification()
-        vc.authorizeHealthKit()
+//        vc.authorizeHealthKit()
+        ViewController.shared.authorizeHealthKit()
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -109,8 +110,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         print("entered background")
         
         cancelAllPandingBGTask()
-        vc.scheduleBackgroundAccelerometer()
-        vc.readRecordedAccelerometerData()
+//        vc.scheduleBackgroundAccelerometer()
+//        vc.readRecordedAccelerometerData()
         //vc.LoadRecentHeartrate()
         scheduleLocalNotification()
         scheduleAppRefresh()
@@ -229,8 +230,8 @@ extension SceneDelegate {
             task.setTaskCompleted(success: false)
             print("task failed")
         }
-        self.vc.LoadRecentHeartrate()        //
-        
+        // self.vc.LoadRecentHeartrate()        //
+        ViewController.shared.LoadRecentHeartrate()
         //do {
             //try BGTaskScheduler.shared.submit(request)
             //print("scheduling heartratecheck")

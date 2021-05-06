@@ -25,7 +25,7 @@ struct LoginScreen : View {
     @State var password: String = ""
     
     @State var authenticationFail: Bool = false
-    @State var authenticationSucceed: Bool = false
+    @State var authenticationSucceed: Bool = true
     
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @State var currentNonce:String?

@@ -28,7 +28,7 @@ struct ContentView: View {
     @State private var n = 0
 
     @ObservedObject var lm = LocationManager()
-    @ObservedObject var vc = ViewController()
+    // @ObservedObject var vc = ViewController()
     @ObservedObject var hk =
         HealthKitSetupAssistant()
     
@@ -54,7 +54,7 @@ struct ContentView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
-                .onAppear { self.vc.startAccelerometer()}
+//                .onAppear { self.vc.startAccelerometer()}
                 //.onAppear {self.vc.authorizeHealthKit()}
                 //.onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()

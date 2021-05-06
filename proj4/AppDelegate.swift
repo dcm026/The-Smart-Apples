@@ -16,11 +16,10 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    var vc = ViewController()
+    
     // MARK: - Core Data stack
        // ❇️ This is the out-of-the-box Core Data stack initialization code
-      var vc = ViewController()
     
        var persistentContainer: NSPersistentContainer = {
            /*
@@ -40,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("launching app")
         FirebaseApp.configure()
+        ViewController.shared.startAccelerometer()
         return true
     }
 

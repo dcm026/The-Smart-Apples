@@ -13,8 +13,8 @@ struct OptionsMenu: View {
     @State public var inactivityThreshold = "3600" // time of lack of movement in seconds before automatic SoS alert is sent out
     @State public var automaticSoS = "1" // "1" will automatically send out SoS
     @State public var calibrationFactor = ".01" // accelerometer calibration factor (higher values will decrease sensitivity to movement), defualt is .01
-    
-    @ObservedObject var vc = ViewController()
+    let defaults = UserDefaults.standard
+    @ObservedObject var vc = ViewController.shared//ViewController()
     @Environment(\.managedObjectContext) var managedObjectContext
     var body: some View {
         VStack() {
@@ -27,6 +27,7 @@ struct OptionsMenu: View {
 
                 Button("Submit") {
                     print("$inactivityThreshold set to: \($inactivityThreshold)")
+                    defaults.set($inactivityThreshold, forKey: "inactivityThreshold")
                     hideKeyboard()
                 }
             }
@@ -38,6 +39,7 @@ struct OptionsMenu: View {
 
                 Button("Submit") {
                     print("$calibrationFactor set to: \($calibrationFactor)")
+                    defaults.set($calibrationFactor, forKey: "calibrationFactor")
                     hideKeyboard()
                 }
             }
@@ -49,6 +51,7 @@ struct OptionsMenu: View {
 
                 Button("Submit") {
                     print("$inactivityThreshold set to: \($automaticSoS)")
+                    defaults.set($automaticSoS, forKey: "automaticSoS")
                     hideKeyboard()
                 }
             }
@@ -56,6 +59,8 @@ struct OptionsMenu: View {
             Text("Accelerometer Data")
             Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)")
             Text("Time elapsed since movement: \(self.vc.lastUpdateTime - self.vc.lastMovementTime)")
+//            Text("X: \(ViewController.shared.x) Y: \(ViewController.shared.y) Z: \(ViewController.shared.z)")
+//            Text("Time elapsed since movement: \(ViewController.shared.lastUpdateTime - ViewController.shared.lastMovementTime)")
         }  
         
     }
@@ -67,3 +72,5 @@ struct OptionsMenu_Previews: PreviewProvider {
         OptionsMenu()
     }
 }
+
+

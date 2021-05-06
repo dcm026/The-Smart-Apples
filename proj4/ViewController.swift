@@ -5,6 +5,8 @@ import WatchConnectivity
 import AuthenticationServices
 import os
 import HealthKit
+import mailgun
+import SwiftUI
 
 
 extension CMSensorDataList: Sequence {
@@ -13,9 +15,10 @@ extension CMSensorDataList: Sequence {
         return NSFastEnumerationIterator(self)
     }
 }
-	
 
-class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
+
+final class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
+    static let shared = ViewController() // 
     var motion = CMMotionManager();
     // store last x, y, and z measurement
     public var x: Double = 0.0
@@ -29,6 +32,14 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     private var lastRecorderAccess = Date()
     private var rec: CMSensorRecorder = CMSensorRecorder() // accelerometer background recorder reference
     private var bgAccPeridicity: Double = 1 * 60 // periodicity that accelerometer will record for (5 * 60 is 5 minutes)
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
+    private var alertSent = false
+//    public var inactivityThreshold = "3600" // time of lack of movement in seconds before automatic SoS alert is sent out
+//    public var automaticSoS = "1" // "1" will automatically send out SoS
+//    public var calibrationFactor = ".01" // accelerometer calibration factor (higher values will decrease sensitivity to movement),
+//    var om: OptionsMenu = OptionsMenu() // OptionsMenu reference to grab user inputted values defined in Settings
+    // OptionsMenu reference to grab user inputted values defined in Settings
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +90,9 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
         lastMessage = CFAbsoluteTimeGetCurrent()
     }
     
+    //MARK: Accelerometer (works in foreground)
     func startAccelerometer() {
+        //while (true) {
         motion.accelerometerUpdateInterval = self.updateFrequency
         // callback function that triggers upon a change
         motion.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
@@ -95,22 +108,33 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                     self.lastMovementTime = Int(date.timeIntervalSince1970)
                 }
                 
-                
-                
-                // print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
-                //print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
+//                print(self.om.inactivityThreshold)
+                 print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
+                print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
                 
                 self.x = x
                 self.y = y
                 self.z = z
                 
                 self.lastUpdateTime = Int(date.timeIntervalSince1970)
-                let actext:StaticString = "update Accelerometer"
-                if self.lastUpdateTime == 100 {}
-                //os_log(actext)
+//                let actext:StaticString = "update Accelerometer"
+//                os_log(actext)
+                if (self.vc.lastUpdateTime - self.vc.lastMovementTime) > self.
             }
         }
-        
+    }
+    
+    func sendSoS() {
+        if !self.alertSent {
+            for con in self.contactList {
+                let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
+
+                mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/") // \(self.latitude),\(self.longitude)")
+                let text:StaticString = "mail sent"
+                os_log(text)
+                self.alertSent = true
+            }
+        }
     }
     
     func authorizeHealthKit(){
@@ -165,42 +189,40 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
         }
     
     //MARK: Background Accelerometer
-    //    func scheduleBackgroundAccelerometer() {
-    //        // record data in background
-    //        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-    //            print("run background accelerometer")
-    //            self.lastRecorderAccess = Date()
-    //            self.rec.recordAccelerometer(forDuration: 5 * 60)  // Record for 5 minutes
-    //        }
-    //    }
+        func scheduleBackgroundAccelerometer() {
+            // record data in background
+            if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+                print("run background accelerometer")
+                self.lastRecorderAccess = Date(timeIntervalSinceNow: -(60 * 60 * 10))// Set access time to 10 hours ago (this may need to be changed depending on background implementation)
+                self.rec.recordAccelerometer(forDuration: 60 * 60 * 10)  // Record for 10 hours
+            }
+        }
         
     // perform asynchronously and call callback function to get data at end of recorder lifetime
-    @IBAction func scheduleBackgroundAccelerometer() {
-        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            print("run background accelerometer")
-            self.lastRecorderAccess = Date()
-            DispatchQueue.global(qos: .background).async {
-                self.rec.recordAccelerometer(forDuration: self.bgAccPeridicity)
-            }
-            perform(#selector(recordedAccCallback), with: nil, afterDelay: self.bgAccPeridicity)
-        }
-    }
-    
-    @objc func recordedAccCallback() {
-        DispatchQueue.global(qos: .background).async {
-            self.readRecordedAccelerometerData()
-        }
-    }
+//    @IBAction func scheduleBackgroundAccelerometer() {
+//        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+//            print("run background accelerometer")
+//            DispatchQueue.global(qos: .background).async {
+//                self.rec.recordAccelerometer(forDuration: self.bgAccPeridicity)
+//            }
+//            perform(#selector(recordedAccCallback), with: nil, afterDelay: self.bgAccPeridicity)
+//        }
+//    }
+//    @objc func recordedAccCallback() {
+//        DispatchQueue.global(qos: .background).async {
+//            self.readRecordedAccelerometerData()
+//        }
+//    }
     
     func readRecordedAccelerometerData() {
-        if let list = self.rec.accelerometerData(from: Date(timeIntervalSinceNow: -(self.bgAccPeridicity)), to: Date()) {
+        if let list = self.rec.accelerometerData(from: self.lastRecorderAccess, to: Date()) {
             for datum in list {
                 if let accdatum = datum as? CMRecordedAccelerometerData {
-                    let accel = accdatum.acceleration
-                    let t = accdatum.timestamp
-//                    print(t, accel)
+                    print(accdatum.acceleration, accdatum.timestamp)
+                    // process background accelerometer data here
                 }
             }
+            self.lastRecorderAccess = Date()
         }
     }
     
