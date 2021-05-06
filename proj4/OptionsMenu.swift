@@ -23,10 +23,15 @@ struct OptionsMenu: View{
                     Text("Accelerometer")
                         .font(.title2)}
                 Section(header: Text("ABOUT")) {
+                    NavigationLink(destination: Disclaimer()) {
+                        Text("Disclaimer")
+                            .font(.title3)}
                     HStack {
                         Text("Version")
+                            .font(.title3)
                         Spacer()
                         Text("\(self.appVersion ?? "0.0.0")")
+                            .font(.title3)
                     }
                 }
             }

@@ -14,7 +14,7 @@ struct MainView: View {
     var body: some View {
         TabView {
             ContentView()
-                .tabItem{ Label("SOS", systemImage:"heart.circle")}
+                .tabItem{ Label("Alert", systemImage:"heart.circle")}
             ContactViewMain()
                 .tabItem{ Label("Contacts", systemImage:"list.dash")}
             OptionsMenu()
