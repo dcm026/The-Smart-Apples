@@ -11,6 +11,8 @@ import mailgun
 import CoreData
 import os
 
+let sceneDel = UIApplication.shared.delegate as! AppDelegate
+
 struct contactRow : View {
     var c: Contact_
     var body: some View{
@@ -28,7 +30,7 @@ struct ContentView: View {
     @State private var n = 0
 
     @ObservedObject var lm = LocationManager()
-    @ObservedObject var vc = ViewController()
+    let vc = sceneDel.vc
     @ObservedObject var hk =
         HealthKitSetupAssistant()
     
@@ -55,8 +57,6 @@ struct ContentView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 100.0)
                 .onAppear { self.vc.startAccelerometer()}
-                //.onAppear {self.vc.authorizeHealthKit()}
-                //.onAppear {self.vc.LoadRecentHeartrate()}
             Spacer()
             TextField("Press Here to Enter Contact", text: $text)
                 .keyboardType(.numberPad)

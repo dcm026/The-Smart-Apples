@@ -97,8 +97,8 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 
                 
                 
-                // print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
-                //print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
+                print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
+                print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
                 
                 self.x = x
                 self.y = y

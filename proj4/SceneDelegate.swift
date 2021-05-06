@@ -22,6 +22,7 @@ import CoreData
 //    }
 //}
 
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
@@ -31,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     var placemark = ""
     @ObservedObject var lm = LocationManager()
     var userProvidedInput = true
-    @ObservedObject var vc = ViewController()
+    let vc = sceneDel.vc
     
     func userNotificationCenter(
             _ center: UNUserNotificationCenter,
