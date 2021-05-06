@@ -25,7 +25,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     public var lastUpdateTime = -1
     public var lastMessage: CFAbsoluteTime = 0
     private var movementThreshold: Double = 0.01
-    private var updateFrequency = 0.01 // refresh frequency (in seconds)
+    private var updateFrequency = 0.1 // refresh frequency (in seconds)
     private var lastRecorderAccess = Date()
     private var rec: CMSensorRecorder = CMSensorRecorder() // accelerometer background recorder reference
     private var bgAccPeridicity: Double = 1 * 60 // periodicity that accelerometer will record for (5 * 60 is 5 minutes)
