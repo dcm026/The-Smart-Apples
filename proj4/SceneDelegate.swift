@@ -141,7 +141,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         print("attempt to register checkheartRatetask")
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "checkheartRate", using: nil ){
             task in
-            self.checkheartRate(task: task as! BGAppRefreshTask)
+            self.checkheartRate(task: task as! BGProcessingTask)
         }
     }
 
@@ -168,7 +168,7 @@ extension SceneDelegate {
     }
     
     func scheduleheartRate(){
-        let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
+        let request = BGProcessingTaskRequest(identifier: "checkheartRate")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60) // App Refresh after 2 minute.
         //Note :: EarliestBeginDate should not be set to too far into the future.
         do {
@@ -221,7 +221,7 @@ extension SceneDelegate {
         //
         task.setTaskCompleted(success: true)
     }
-    func checkheartRate(task: BGAppRefreshTask){
+    func checkheartRate(task: BGProcessingTask){
         //let request = BGAppRefreshTaskRequest(identifier: "checkheartRate")
         //request.earliestBeginDate = Date(timeIntervalSinceNow: 0.10 * 60);
         print("checking heartrate in background")
