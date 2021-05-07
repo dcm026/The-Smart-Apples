@@ -38,7 +38,19 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     public var automaticSoS: String = "0" // "1" will automatically send out SoS
     public var movementThreshold: Double = 0.02 // accelerometer calibration factor (higher values will decrease sensitivity to movement),
     public var VCcontactList: FetchedResults<Contact_>? = nil
-        
+       
+    
+    @ObservedObject var lm = LocationManager()
+    var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
+    var longitude: String { return("\(lm.location?.longitude ?? 0)") }
+    var placemark: String { return("\(lm.placemark?.description ?? "XXX")") }
+    var subLocality: String { return("\(lm.placemark?.subLocality ?? "XXX")") }
+    var thoroughfare: String { return("\(lm.placemark?.thoroughfare ?? "XXX")") }
+    var locality: String { return("\(lm.placemark?.locality ?? "XXX")") }
+    var country: String { return("\(lm.placemark?.country ?? "XXX")") }
+    var postalCode: String { return("\(lm.placemark?.postalCode ?? "XXX")") }
+    var status: String    { return("\(String(describing: lm.status))") }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,7 +120,6 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 }
                 
                 
-                
                 //print("X: \(self.x) Y: \(self.y) Z: \(self.z) ")
                 //print("Differences: \(abs(self.x - x)) \(abs(self.y - y)) \(abs(self.z - z))")
                 
@@ -138,7 +149,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
         for con in self.VCcontactList! {
             let mailgun = Mailgun.client(withDomain: "www.mikeoneal.com", apiKey: "key-8e717175b238cd0964ba5cc74026c69f")
 
-            mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/") // \(self.latitude),\(self.longitude)")
+            mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
             let text:StaticString = "mail sent (automatic)"
             os_log(text)
             self.alertSent = true
