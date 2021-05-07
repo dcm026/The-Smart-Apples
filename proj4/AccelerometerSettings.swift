@@ -32,7 +32,7 @@ struct AccelerometerSettings: View{
                 }
             }
             HStack {
-                Text("Accelerometer Calibration Factor (default is 0.2)")
+                Text("Accelerometer Calibration Factor (default is 0.02)")
                 TextField("Input value here", text: $calibrationFactor)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.decimalPad)

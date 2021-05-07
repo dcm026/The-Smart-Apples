@@ -33,7 +33,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     private var lastRecorderAccess = Date()
     private var rec: CMSensorRecorder = CMSensorRecorder() // accelerometer background recorder reference
     private var bgAccPeridicity: Double = 1 * 60 // periodicity that accelerometer will record for (5 * 60 is 5 minutes)
-    private var alertSent = false
+   // private var alertSent = false
     public var inactivityThreshold: Int = 3600 // time of lack of movement in seconds before automatic SoS alert is sent out
     public var automaticSoS: String = "0" // "1" will automatically send out SoS
     public var movementThreshold: Double = 0.02 // accelerometer calibration factor (higher values will decrease sensitivity to movement),
