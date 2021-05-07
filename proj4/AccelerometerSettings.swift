@@ -13,6 +13,7 @@ struct AccelerometerSettings: View{
     @State public var automaticSoS = "0" // "1" will automatically send out SoS
     @State public var calibrationFactor = ".02" // accelerometer calibration factor (higher values will decrease sensitivity to movement), defualt is .02
     
+    @ObservedObject private var alert = Alert.shared
     @ObservedObject var vc:ViewController = sceneDel.vc
     @Environment(\.managedObjectContext) var managedObjectContext
     var body: some View {
@@ -31,7 +32,7 @@ struct AccelerometerSettings: View{
                 }
             }
             HStack {
-                Text("Accelerometer Calibration Factor (default is \(self.calibrationFactor))")
+                Text("Accelerometer Calibration Factor (default is 0.2)")
                 TextField("Input value here", text: $calibrationFactor)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.decimalPad)
@@ -54,6 +55,10 @@ struct AccelerometerSettings: View{
                     hideKeyboard()
                 }
             }
+            if alert.sent == true {
+                Text("Alert Sent. Go to alert tab to cancel alert.")
+            }
+            
             Spacer()
             Text("Accelerometer Data")
             Text("X: \(self.vc.x) Y: \(self.vc.y) Z: \(self.vc.z)")

@@ -25,9 +25,10 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Contact_.allContactsFetchRequest()) var contactList: FetchedResults<Contact_>
 
-    @State private var alertSent = false
+    //@State private var alertSent = false
     @State private var text = ""
     @State private var n = 0
+    @ObservedObject private var alert = Alert.shared
 
     @ObservedObject var lm = LocationManager()
     let vc = sceneDel.vc
@@ -100,7 +101,7 @@ struct ContentView: View {
 
             
             Spacer()
-            if self.alertSent{
+            if alert.sent{
                 Text("Alert Sent. Hold Button 2 Seconds to Clear Alert")
                 Button( action: {
 //                self.presentMailCompose()
@@ -111,7 +112,7 @@ struct ContentView: View {
 //                    mailgun?.sendMessage(to: con.email ?? "" + "@tmomail.net", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nThe Alcor member has cancelled the alert or someone else has arrived. Thank you.")
                     let text:StaticString = "clear sent"
                     os_log(text)
-                    self.alertSent = false
+                    alert.sent = false
                 }
             })
             {
@@ -128,7 +129,7 @@ struct ContentView: View {
                  //   mailgun?.sendMessage(to: con.email ?? "", from: "Excited User <someone@sample.org>", subject: "SOS", body: "Latitude: \(self.latitude) \n Longitude: \(self.longitude) \n Placemark: \(self.placemark)")
                     let text:StaticString = "mail sent"
                     os_log(text)
-                    self.alertSent = true
+                    alert.sent = true
                 }
             })
             {
@@ -311,4 +312,10 @@ class LocationManager: NSObject, ObservableObject {
   }
 }
 
+class Alert: ObservableObject {
+    static let shared = Alert()
+    private init() {}
+    
+    @Published var sent = false
+}
 

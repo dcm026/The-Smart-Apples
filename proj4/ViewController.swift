@@ -39,6 +39,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     public var movementThreshold: Double = 0.02 // accelerometer calibration factor (higher values will decrease sensitivity to movement),
     public var VCcontactList: FetchedResults<Contact_>? = nil
        
+    @ObservedObject private var alert = Alert.shared
     
     @ObservedObject var lm = LocationManager()
     var latitude: String  { return("\(lm.location?.latitude ?? 0)") }
@@ -106,7 +107,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
     func startAccelerometer() {
         motion.accelerometerUpdateInterval = self.updateFrequency
         // callback function that triggers upon a change
-        motion.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
+        motion.startAccelerometerUpdates(to: OperationQueue.main) { [self] (data, error) in
             if let myData = data{
                 let date = NSDate()
                 
@@ -134,11 +135,11 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
                 
 //                print("User settings: inactivityThreshold \(self.inactivityThreshold) movementThreshold: \(self.movementThreshold) automaticSoS: \(self.automaticSoS)")
                 
-                if (self.lastUpdateTime - self.lastMovementTime) > self.inactivityThreshold && self.alertSent == false && self.automaticSoS == "1" {
+                if (self.lastUpdateTime - self.lastMovementTime) > self.inactivityThreshold && alert.sent == false && self.automaticSoS == "1" {
                     print("send auto sos")
 //                    self.cv!.sendSOS()
                     self.sendSOS()
-                    self.alertSent = true
+                    alert.sent = true
                 }
             }
         }
@@ -152,7 +153,7 @@ class ViewController: UIViewController, ObservableObject, WCSessionDelegate {
             mailgun?.sendMessage(to: con.email ?? "", from: "Alcor Health User <someone@sample.org>", subject: "SOS", body: "\nHello!\nYou have been listed as an Emergency Contact for an Alcor member. They are in need of immediate attention. Their location is provided below.\nLocation Link: https://www.google.com/maps/search/\(self.latitude),\(self.longitude)")
             let text:StaticString = "mail sent (automatic)"
             os_log(text)
-            self.alertSent = true
+            alert.sent = true
         }
     }
     
